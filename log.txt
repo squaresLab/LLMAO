@@ -1,0 +1,1047 @@
+Finished training 150 epochs for 1024 dimensions & 16 heads on bugsinpy 350M
+best epoch: 146
+best vloss: 0.1212
+best rec: 0.0135523
+best prec: 0.056514
+best acc: 0.9838105
+
+Finished training 172 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 142
+best vloss: 0.1256
+best rec: 0.0122449
+best prec: 0.052353
+best acc: 0.9826635
+
+Finished training 215 epochs for 256 dimensions & 4 heads on bugsinpy 350M
+best epoch: 214
+best vloss: 0.1334
+best rec: 0.0182823
+best prec: 0.0404572
+best acc: 0.9814699
+
+Finished training 225 epochs for 1024 dimensions & 16 heads on bugsinpy 2B
+best epoch: 182
+best vloss: 0.1625
+best rec: 0.0042017
+best prec: 0.0142799
+best acc: 0.980489
+
+Finished training 258 epochs for 512 dimensions & 8 heads on bugsinpy 2B
+best epoch: 230
+best vloss: 0.1681
+best rec: 0.0126417
+best prec: 0.0226138
+best acc: 0.9810961
+
+Finished training 322 epochs for 256 dimensions & 4 heads on bugsinpy 2B
+best epoch: 319
+best vloss: 0.1794
+best rec: 0.0090734
+best prec: 0.0233416
+best acc: 0.9797668
+
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 6B
+best epoch: 298
+best vloss: 0.1395
+best rec: 0.0059524
+best prec: 0.0142799
+best acc: 0.9827957
+
+
+Finished training 345 epochs for 512 dimensions & 8 heads on bugsinpy 6B
+best epoch: 343
+best vloss: 0.1415
+best rec: 0.0058036
+best prec: 0.0475785
+best acc: 0.9826012
+
+
+Finished training 431 epochs for 256 dimensions & 4 heads on bugsinpy 6B
+best epoch: 425
+best vloss: 0.1541
+best rec: 0.0135417
+best prec: 0.0321324
+best acc: 0.9818919
+
+Finished training 150 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 92
+best vloss: 0.1096
+best rec: 0.0273611
+best prec: 0.1057359
+best acc: 0.9809245
+
+Finished training 172 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 170
+best vloss: 0.1165
+best rec: 0.015873
+best prec: 0.0988988
+best acc: 0.9801854
+
+Finished training 215 epochs for 256 dimensions & 4 heads on defects4j 350M
+best epoch: 193
+best vloss: 0.1166
+best rec: 0.0200566
+best prec: 0.1452399
+best acc: 0.9805523
+
+Finished training 225 epochs for 1024 dimensions & 16 heads on defects4j 2B
+best epoch: 193
+best vloss: 0.1135
+best rec: 0.01821
+best prec: 0.1633215
+best acc: 0.9809586
+
+Finished training 258 epochs for 512 dimensions & 8 heads on defects4j 2B
+best epoch: 244
+best vloss: 0.1227
+best rec: 0.0112305
+best prec: 0.0728808
+best acc: 0.9799181
+
+Finished training 322 epochs for 256 dimensions & 4 heads on defects4j 2B
+best epoch: 317
+best vloss: 0.1226
+best rec: 0.0051996
+best prec: 0.083241
+best acc: 0.979921
+
+
+Finished training 500 epochs for 512 dimensions & 8 heads on bugsinpy 2B
+best epoch: 499
+best vloss: 0.1539
+best rec: 0.0032468
+best prec: 0.0102011
+best acc: 0.9796045
+
+Finished training 1000 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 981
+best vloss: 0.1221
+best rec: 0.0059524
+best prec: 0.0237933
+best acc: 0.9827314
+
+Finished training 500 epochs for 1024 dimensions & 16 heads on defects4j 2B
+best epoch: 348
+best vloss: 0.1139
+best rec: 0.0164576
+best prec: 0.1884904
+best acc: 0.980461
+
+Finished training 750 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 222
+best vloss: 0.1096
+best rec: 0.0581665
+best prec: 0.2144526
+best acc: 0.9806907
+
+Finished training 500 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 322
+best vloss: 0.1167
+best rec: 0.0116269
+best prec: 0.2029172
+best acc: 0.980703
+
+Finished training 750 epochs for 1024 dimensions & 16 heads on bugsinpy 2B
+best epoch: 122
+best vloss: 0.1474
+best rec: 0.0089286
+best prec: 0.0677542
+best acc: 0.9845848
+
+Finished training 750 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 358
+best vloss: 0.114
+best rec: 0.0355351
+best prec: 0.1124301
+best acc: 0.9809033
+
+Finished training 1000 epochs for 1024 dimensions & 16 heads on bugsinpy 350M
+best epoch: 255
+best vloss: 0.1536
+best rec: 0.0039062
+best prec: 0.0119024
+best acc: 0.9746903
+
+Finished training 1000 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 530
+best vloss: 0.1532
+best rec: 0.0
+best prec: 0.0
+best acc: 0.9764967
+
+Finished training 2000 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 463
+best vloss: 0.4363
+best rec: 0.0187973
+best prec: 0.1737027
+best acc: 0.9753587
+
+Finished training 2000 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 83
+best vloss: 0.1492
+best rec: 0.042859
+best prec: 0.4562888
+best acc: 0.9697879
+
+Finished training 3000 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 25
+best vloss: 0.2045
+best rec: 0.0669928
+best prec: 0.4142067
+best acc: 0.9693953
+
+Finished training 3000 epochs for 1024 dimensions & 16 heads on bugsinpy 2B
+best epoch: 1151
+best vloss: 0.4741
+best rec: 0.0125295
+best prec: 0.296321
+best acc: 0.9753775
+
+Finished training 3000 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 1662
+best vloss: 0.8608
+best rec: 0.1062726
+best prec: 0.2692608
+best acc: 0.9653008
+
+Finished training 3000 epochs for 512 dimensions & 16 heads on bugsinpy 350M
+best epoch: 2337
+best vloss: 0.6106
+best rec: 0.0075448
+best prec: 0.3116704
+best acc: 0.9717551
+
+Finished training 3000 epochs for 256 dimensions & 8 heads on bugsinpy 350M
+best epoch: 2751
+best vloss: 0.777
+best rec: 0.0128264
+best prec: 0.1773648
+best acc: 0.9681656
+
+Finished training 6000 epochs for 1024 dimensions & 16 heads on bugsinpy 6B
+best epoch: 3886
+best vloss: 0.6175
+best rec: 0.0214585
+best prec: 0.1466493
+best acc: 0.9681243
+
+Finished training 6000 epochs for 1024 dimensions & 16 heads on defects4j 6B
+best epoch: 234
+best vloss: 0.1474
+best rec: 0.0177863
+best prec: 0.5117014
+best acc: 0.9674605
+
+Finished training 1 epochs for 256 dimensions & 4 heads on defects4j 350M
+best epoch: 0
+best vloss: 1000000.0
+best rec: 0
+best prec: 0
+best acc: 0
+
+Finished training 1 epochs for 256 dimensions & 4 heads on defects4j 350M
+best epoch: 0
+best vloss: 1000000.0
+best rec: 0
+best prec: 0
+best acc: 0
+
+Finished training 2 epochs for 256 dimensions & 4 heads on defects4j 6B
+best epoch: 0
+best vloss: 1000000.0
+best rec: 0
+best prec: 0
+best acc: 0
+
+Finished training 6000 epochs for 256 dimensions & 4 heads on defects4j 6B
+best epoch: 5274
+best vloss: 0.1376
+best rec: 0.0625086
+best prec: 0.2772872
+best acc: 0.9709774
+
+Finished training 6000 epochs for 512 dimensions & 8 heads on bugsinpy 6B
+best epoch: 3911
+best vloss: 0.7444
+best rec: 0.025747
+best prec: 0.1677359
+best acc: 0.9658774
+
+Finished training 3000 epochs for 1024 dimensions & 16 heads on bugsinpy 16B
+best epoch: 214
+best vloss: 0.1578
+best rec: 0.0099561
+best prec: 0.1605122
+best acc: 0.9710515
+
+Finished training 3000 epochs for 1024 dimensions & 16 heads on defects4j 16B
+best epoch: 121
+best vloss: 0.1452
+best rec: 0.0253376
+best prec: 0.3627904
+best acc: 0.9694303
+
+Finished training 6000 epochs for 1024 dimensions & 16 heads on defects4j 6B
+best epoch: 137
+best vloss: 0.1466
+best rec: 0.02147
+best prec: 0.3103101
+best acc: 0.9691663
+
+Finished training 2 epochs for 1024 dimensions & 16 heads on defects4j 2B
+best epoch: 0
+best vloss: 1000000.0
+best rec: 0
+best prec: 0
+best acc: 0
+
+Finished training 2 epochs for 1024 dimensions & 16 heads on defects4j 2B
+best epoch: 0
+best vloss: 1000000.0
+best rec: 0
+best prec: 0
+best acc: 0
+
+Finished training 200 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 0
+best vloss: 1000000.0
+best rec: 0
+best prec: 0
+best acc: 0
+
+Finished training 200 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 199
+best vloss: 0.1675
+best rec: 0.0
+best prec: 0.0
+best acc: 0.9618184
+
+Finished training 200 epochs for 1024 dimensions & 16 heads on defects4j 16B
+best epoch: 105
+best vloss: 0.1633
+best rec: 0.0810519
+best prec: 0.2805091
+best acc: 0.9666691
+
+Finished training 200 epochs for 256 dimensions & 4 heads on bugsinpy 350M
+best epoch: 0
+best vloss: 0.35
+best rec: 0.126833
+best prec: 0.0423895
+best acc: 0.8725951
+
+Finished training 200 epochs for 256 dimensions & 4 heads on defects4j 350M
+best epoch: 0
+best vloss: 0.7498
+best rec: 0.3100937
+best prec: 0.0410309
+best acc: 0.6931142
+
+Finished training 2000 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 157
+best vloss: 0.5675
+best rec: 0.0837001
+best prec: 0.1957781
+best acc: 0.9617287
+
+Finished training 200 epochs for 256 dimensions & 4 heads on bugsinpy 350M
+best epoch: 174
+best vloss: 0.1268
+best rec: 0.0
+best prec: 0.0
+best acc: 0.9754945
+
+Finished training 2000 epochs for 1024 dimensions & 16 heads on bugsinpy 16B
+best epoch: 1198
+best vloss: 0.2581
+best rec: 0.047487
+best prec: 0.138796
+best acc: 0.9711663
+
+Finished training 300 epochs for 256 dimensions & 4 heads on defects4j 16B
+best epoch: 266
+best vloss: 0.1415
+best rec: 0.0366305
+best prec: 0.1559108
+best acc: 0.9699399
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 38
+best vloss: 0.1563
+best rec: 0.0170875
+best prec: 0.1583893
+best acc: 0.9683169
+
+Finished training 300 epochs for 256 dimensions & 4 heads on defects4j 6B
+best epoch: 34
+best vloss: 0.1588
+best rec: 0.0067068
+best prec: 0.1332538
+best acc: 0.9685455
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 56
+best vloss: 0.5302
+best rec: 0.0883942
+best prec: 0.1486544
+best acc: 0.9586919
+
+Finished training 300 epochs for 256 dimensions & 4 heads on defects4j 350M
+best epoch: 77
+best vloss: 0.5896
+best rec: 0.1144253
+best prec: 0.1653039
+best acc: 0.9574536
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 350M
+best epoch: 242
+best vloss: 0.4316
+best rec: 0.0138889
+best prec: 0.083312
+best acc: 0.9725945
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 258
+best vloss: 0.4746
+best rec: 0.0289683
+best prec: 0.1665743
+best acc: 0.9728565
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 350M
+best epoch: 63
+best vloss: 0.5981
+best rec: 0.0096591
+best prec: 0.1665601
+best acc: 0.9556679
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on defects4j 350M
+best epoch: 3
+best vloss: 0.3201
+best rec: 0.1881798
+best prec: 0.0598301
+best acc: 0.8655838
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on devign 350M
+best epoch: 128
+best vloss: 0.0692
+best rec: 0.5917229
+best prec: 0.7992568
+best acc: 0.9848962
+
+Finished training 300 epochs for 512 dimensions & 8 heads on devign 350M
+best epoch: 280
+best vloss: 0.0669
+best rec: 0.4816324
+best prec: 0.8142853
+best acc: 0.9832985
+
+Finished training 300 epochs for 256 dimensions & 4 heads on devign 350M
+best epoch: 228
+best vloss: 0.0889
+best rec: 0.2046655
+best prec: 0.89372
+best acc: 0.9777963
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 6B
+best epoch: 219
+best vloss: 0.5518
+best rec: 0.0239792
+best prec: 0.1715696
+best acc: 0.9559767
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 16B
+best epoch: 59
+best vloss: 0.1388
+best rec: 0.0069444
+best prec: 0.1664962
+best acc: 0.9739805
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on defects4j 6B
+best epoch: 261
+best vloss: 0.1959
+best rec: 0.0771778
+best prec: 0.1578373
+best acc: 0.9604443
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on defects4j 16B
+best epoch: 85
+best vloss: 0.1794
+best rec: 0.092504
+best prec: 0.2722874
+best acc: 0.967118
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 6B
+best epoch: 266
+best vloss: 0.2016
+best rec: 0.0129273
+best prec: 0.1319083
+best acc: 0.9690316
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 19
+best vloss: 0.1693
+best rec: 0.0291005
+best prec: 0.0937274
+best acc: 0.9695205
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 6B
+best epoch: 12
+best vloss: 0.1988
+best rec: 0.063509
+best prec: 0.0508774
+best acc: 0.9632963
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 16B
+best epoch: 206
+best vloss: 0.1819
+best rec: 0.052506
+best prec: 0.1041329
+best acc: 0.9705686
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 350M
+best epoch: 77
+best vloss: 0.4029
+best rec: 0.0087546
+best prec: 0.2497443
+best acc: 0.9746629
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 6B
+best epoch: 272
+best vloss: 0.4264
+best rec: 0.0226385
+best prec: 0.1555119
+best acc: 0.9691386
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on bugsinpy 16B
+best epoch: 130
+best vloss: 0.4198
+best rec: 0.0204774
+best prec: 0.1735563
+best acc: 0.9593733
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 27
+best vloss: 0.228
+best rec: 0.0159768
+best prec: 0.1665814
+best acc: 0.9695528
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 6B
+best epoch: 232
+best vloss: 0.2806
+best rec: 0.0373016
+best prec: 0.1041507
+best acc: 0.9683461
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 350M
+best epoch: 87
+best vloss: 0.3979
+best rec: 0.0496127
+best prec: 0.0999836
+best acc: 0.9724334
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 298
+best vloss: 0.3582
+best rec: 0.0556643
+best prec: 0.1273637
+best acc: 0.9691855
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 6B
+best epoch: 98
+best vloss: 0.1612
+best rec: 0.0066621
+best prec: 0.1248934
+best acc: 0.9721922
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 16B
+best epoch: 57
+best vloss: 0.1373
+best rec: 0.0833333
+best prec: 0.083312
+best acc: 0.9753011
+
+Finished training 300 epochs for 256 dimensions & 4 heads on bugsinpy 6B
+best epoch: 224
+best vloss: 0.1583
+best rec: 0.0948824
+best prec: 0.1646287
+best acc: 0.972093
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on devign 6B
+best epoch: 246
+best vloss: 0.1132
+best rec: 0.0268758
+best prec: 0.2427424
+best acc: 0.9732611
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on devign 16B
+best epoch: 240
+best vloss: 0.0899
+best rec: 0.1751993
+best prec: 0.9002719
+best acc: 0.9774894
+
+Finished training 300 epochs for 512 dimensions & 8 heads on devign 6B
+best epoch: 16
+best vloss: 0.1179
+best rec: 0.0198654
+best prec: 0.1327425
+best acc: 0.9728914
+
+Finished training 300 epochs for 512 dimensions & 8 heads on devign 16B
+best epoch: 281
+best vloss: 0.1091
+best rec: 0.0415992
+best prec: 0.3107608
+best acc: 0.9736692
+
+Finished training 300 epochs for 256 dimensions & 4 heads on devign 6B
+best epoch: 1
+best vloss: 0.1707
+best rec: 0.0069412
+best prec: 0.0236094
+best acc: 0.9660064
+
+Finished training 300 epochs for 256 dimensions & 4 heads on devign 16B
+best epoch: 68
+best vloss: 0.1146
+best rec: 0.0255968
+best prec: 0.178608
+best acc: 0.9726658
+
+Finished training 300 epochs for 1024 dimensions & 16 heads on defects4j 16B
+best epoch: 85
+best vloss: 0.1436
+best rec: 0.030256
+best prec: 0.1715271
+best acc: 0.9693063
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 79
+best vloss: 0.1696
+best rec: 0.0070693
+best prec: 0.2057169
+best acc: 0.9605536
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 292
+best vloss: 0.1487
+best rec: 0.0488834
+best prec: 0.1133832
+best acc: 0.9665677
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 130
+best vloss: 0.1626
+best rec: 0.0316985
+best prec: 0.1763465
+best acc: 0.9648132
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 205
+best vloss: 0.178
+best rec: 0.0321739
+best prec: 0.1117018
+best acc: 0.9577773
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 52
+best vloss: 0.1636
+best rec: 0.0404601
+best prec: 0.205322
+best acc: 0.9644444
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 47
+best vloss: 0.1599
+best rec: 0.0295677
+best prec: 0.099232
+best acc: 0.9669043
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 77
+best vloss: 0.1265
+best rec: 0.0135472
+best prec: 0.1175267
+best acc: 0.9743298
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 62
+best vloss: 0.1632
+best rec: 0.0032384
+best prec: 0.0881601
+best acc: 0.9669634
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 34
+best vloss: 0.189
+best rec: 0.0042505
+best prec: 0.0671655
+best acc: 0.9637273
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 36
+best vloss: 0.1698
+best rec: 0.0109749
+best prec: 0.0901544
+best acc: 0.9628864
+
+Finished training 350 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 73
+best vloss: 0.2102
+best rec: 0.0115331
+best prec: 0.1867266
+best acc: 0.9588544
+
+Finished training 350 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 94
+best vloss: 0.2429
+best rec: 0.0667477
+best prec: 0.197806
+best acc: 0.9592182
+
+Finished training 350 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 175
+best vloss: 0.1937
+best rec: 0.0497934
+best prec: 0.1514604
+best acc: 0.9622477
+
+Finished training 350 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 41
+best vloss: 0.1873
+best rec: 0.0635906
+best prec: 0.2784298
+best acc: 0.958347
+
+Finished training 350 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 248
+best vloss: 0.2733
+best rec: 0.1226595
+best prec: 0.2438743
+best acc: 0.9568458
+
+Finished training 350 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 105
+best vloss: 0.215
+best rec: 0.1635566
+best prec: 0.2818126
+best acc: 0.9650923
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 202
+best vloss: 0.2831
+best rec: 0.1295686
+best prec: 0.2710913
+best acc: 0.9599534
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 67
+best vloss: 0.192
+best rec: 0.0832768
+best prec: 0.2917577
+best acc: 0.9606156
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 201
+best vloss: 0.3585
+best rec: 0.0848072
+best prec: 0.2220587
+best acc: 0.9542324
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 120
+best vloss: 0.4794
+best rec: 0.0384213
+best prec: 0.1279248
+best acc: 0.9568747
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 264
+best vloss: 0.2189
+best rec: 0.0188018
+best prec: 0.1118888
+best acc: 0.9611557
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 6B
+best epoch: 164
+best vloss: 0.2709
+best rec: 0.1149108
+best prec: 0.2445853
+best acc: 0.9600804
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 75
+best vloss: 0.2384
+best rec: 0.1071184
+best prec: 0.2983643
+best acc: 0.9561889
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 214
+best vloss: 0.3105
+best rec: 0.0549784
+best prec: 0.1588962
+best acc: 0.9599932
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 56
+best vloss: 0.166
+best rec: 0.0907141
+best prec: 0.2709125
+best acc: 0.9622697
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 153
+best vloss: 0.3308
+best rec: 0.0751974
+best prec: 0.2581051
+best acc: 0.956397
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 142
+best vloss: 0.2799
+best rec: 0.1716064
+best prec: 0.2616255
+best acc: 0.9636129
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 76
+best vloss: 0.2555
+best rec: 0.077169
+best prec: 0.1281504
+best acc: 0.960298
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 299
+best vloss: 0.4067
+best rec: 0.0656032
+best prec: 0.1751011
+best acc: 0.9594493
+
+Finished training 300 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 47
+best vloss: 0.1715
+best rec: 0.0762618
+best prec: 0.2573197
+best acc: 0.9623649
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 69
+best vloss: 0.2133
+best rec: 0.0276159
+best prec: 0.2182481
+best acc: 0.9624661
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 224
+best vloss: 0.2504
+best rec: 0.1716126
+best prec: 0.2394613
+best acc: 0.9614391
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 221
+best vloss: 0.3247
+best rec: 0.0952717
+best prec: 0.1204191
+best acc: 0.9593162
+
+Finished training 275 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 233
+best vloss: 0.2253
+best rec: 0.0391583
+best prec: 0.168071
+best acc: 0.9605517
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 75
+best vloss: 0.5671
+best rec: 0.034169
+best prec: 0.1476254
+best acc: 0.9580473
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 86
+best vloss: 0.6269
+best rec: 0.021733
+best prec: 0.1758829
+best acc: 0.9610805
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 180
+best vloss: 0.6963
+best rec: 0.0695487
+best prec: 0.2541609
+best acc: 0.9550598
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 75
+best vloss: 0.517
+best rec: 0.0413993
+best prec: 0.1710408
+best acc: 0.9675172
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 92
+best vloss: 0.4937
+best rec: 0.0614949
+best prec: 0.1645628
+best acc: 0.9552119
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 191
+best vloss: 0.4777
+best rec: 0.1394976
+best prec: 0.2573354
+best acc: 0.9657861
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 64
+best vloss: 0.6176
+best rec: 0.0704494
+best prec: 0.2876547
+best acc: 0.9616039
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 18
+best vloss: 0.2468
+best rec: 0.0728843
+best prec: 0.2675105
+best acc: 0.9586521
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 73
+best vloss: 0.5625
+best rec: 0.0468451
+best prec: 0.1338521
+best acc: 0.9636505
+
+Finished training 250 epochs for 512 dimensions & 8 heads on defects4j 350M
+best epoch: 48
+best vloss: 0.4762
+best rec: 0.0822651
+best prec: 0.2571293
+best acc: 0.9643597
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 110
+best vloss: 0.3446
+best rec: 0.1382472
+best prec: 0.1388433
+best acc: 0.9669752
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 168
+best vloss: 0.4537
+best rec: 0.074697
+best prec: 0.1456459
+best acc: 0.9644291
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 215
+best vloss: 0.4257
+best rec: 0.0519314
+best prec: 0.2154482
+best acc: 0.9740806
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 44
+best vloss: 0.1385
+best rec: 0.0116342
+best prec: 0.1665246
+best acc: 0.9761584
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 99
+best vloss: 0.3734
+best rec: 0.0109524
+best prec: 0.1665246
+best acc: 0.9637703
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 96
+best vloss: 0.4113
+best rec: 0.0367947
+best prec: 0.0339582
+best acc: 0.9502689
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 85
+best vloss: 0.2475
+best rec: 0.0054348
+best prec: 0.124952
+best acc: 0.9633711
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 118
+best vloss: 0.3439
+best rec: 0.0615611
+best prec: 0.3570012
+best acc: 0.9704871
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 50
+best vloss: 0.1411
+best rec: 0.0056818
+best prec: 0.1248721
+best acc: 0.975781
+
+Finished training 250 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 162
+best vloss: 0.2905
+best rec: 0.0629746
+best prec: 0.2793984
+best acc: 0.9797813
+
+Finished training 150 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 19
+best vloss: 0.2221
+best rec: 0.0721858
+best prec: 0.0931367
+best acc: 0.9423071
+
+Finished training 150 epochs for 512 dimensions & 8 heads on defects4j 16B
+best epoch: 35
+best vloss: 0.227
+best rec: 0.1264337
+best prec: 0.0836459
+best acc: 0.933038
+
+Finished training 150 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 104
+best vloss: 0.1255
+best rec: 0.0054348
+best prec: 0.1248722
+best acc: 0.9757649
+
+Finished training 150 epochs for 512 dimensions & 8 heads on bugsinpy 6B
+best epoch: 22
+best vloss: 0.1772
+best rec: 0.0083333
+best prec: 0.0416525
+best acc: 0.9702129
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 350M
+best epoch: 32
+best vloss: 0.1298
+best rec: 0.0075758
+best prec: 0.031246
+best acc: 0.9750735
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 6B
+best epoch: 118
+best vloss: 0.1383
+best rec: 0.0178571
+best prec: 0.124952
+best acc: 0.9748093
+
+Finished training 300 epochs for 512 dimensions & 8 heads on bugsinpy 16B
+best epoch: 116
+best vloss: 0.1404
+best rec: 0.0089286
+best prec: 0.124952
+best acc: 0.9734099
+
