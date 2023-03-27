@@ -99,26 +99,6 @@ class CSVDataLoader:
         return datapipe
 
 
-class PreloadedDataset(torch.utils.data.Dataset):
-    def __init__(self, tensors_path):
-        temp_data = []
-        for root, dirs, filenames in os.walk(tensors_path):
-            for fileName in filenames:
-                temp_data.append(torch.load(tensors_path+fileName))
-            break
-        self.data = (list(itertools.chain.from_iterable(temp_data)))
-
-    def __getitem__(self, idx):
-        sample = self.data[idx]
-        input = sample['input']
-        label = sample['label']
-        mask = sample['mask']
-        return input, label, mask
-
-    def __len__(self):
-        return len(self.data)
-
-
 def save_data():
     ap = argparse.ArgumentParser()
     ap.add_argument("data_path", help="Path to data root")
@@ -157,9 +137,16 @@ def save_data():
         data_loaded = DataLoader(
             dataset=datapipe, batch_size=1, drop_last=True
         )
-        os.chdir(f'{data_path}/codegen_states')
+        save_path = f'{data_path}/codegen_states'
+        try:
+            os.mkdir(save_path)
+        except OSError:
+            pass 
+        os.chdir(save_path)
         if not os.path.isdir(f"{data_name}_{pretrain_type}"):
             os.mkdir(f"{data_name}_{pretrain_type}")
+
+            
         
         for batch_iter, batch in enumerate(data_loaded):
             input = batch[0][0].detach()

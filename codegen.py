@@ -37,7 +37,7 @@ class CodeGenPass():
     def setup_model(self, type):
         print('Loading codegen model ...')
         model = CodeGenForCausalLM.from_pretrained(
-            "Salesforce/codegen-" + type + "-multi", output_hidden_states=True, torch_dtype=torch.bfloat16, device_map="balanced")  # device_map="balanced"
+            "Salesforce/codegen-" + type + "-multi", output_hidden_states=True, torch_dtype=torch.bfloat16, device_map="auto")
         model.eval()
         tokenizer = CodeGenTokenizerFast.from_pretrained(
             "Salesforce/codegen-350M-mono", fp16=True)

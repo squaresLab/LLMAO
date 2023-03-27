@@ -4,11 +4,11 @@ from matplotlib import pyplot as plt
 import os
 import json
 import argparse
-import numpy as np
 
 
 def roc_plotter(label_name, labels, probabilities):
     fpr, tpr, _ = roc_curve(labels, probabilities)
+    print(round(roc_auc_score(labels, probabilities), 3))
     if '16B' in label_name:
         plt.plot(fpr, tpr, linestyle='--',
                  label=label_name, color='red')
@@ -18,12 +18,10 @@ def roc_plotter(label_name, labels, probabilities):
     elif '350M' in label_name:
         plt.plot(fpr, tpr, linestyle='--',
                  label=label_name, color='blue')
-    elif 'Transformer' in label_name:
-        label_here = label_name.replace('Transformer', 'from-scratch')
+    elif 'scratch' in label_name:
+        label_here = label_name.replace('scratch', 'from-scratch')
         plt.plot(fpr, tpr, linestyle='--',
                  label=label_here, color='green')
-
-    # axis labels
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
 
@@ -48,8 +46,6 @@ def results_plot():
                     probabilities = data['prob']
                     labels = data["label"]
                     f.close()
-
-
                     filtered_prob = []
                     filtered_label = []
                     for i, prob in enumerate(probabilities):
@@ -59,22 +55,17 @@ def results_plot():
                     label_name = f'{data_name}-{params}'.replace('--', '-').replace(
                         'bugsinpy', 'BugsInPy').replace('defects4j', 'Defects4J').replace('devign', 'Devign')
                     print(label_name)
-
                     roc_plotter(label_name, filtered_label, filtered_prob)
 
         handles, labels = plt.gca().get_legend_handles_labels()
-        # if 'Devign' in label_name:
-        #     order = [0, 4, 2, 1, 3]
-        # elif 'Defects4J' in label_name:
-        #     order = [0, 3, 1, 4, 2]
-        # elif 'BugsInPy' in label_name:
-        #     order = [0, 2, 3, 1, 4]
-        # plt.legend([handles[idx] for idx in order], [labels[idx]
-        #         for idx in order], loc='lower right')
-        plt.legend(loc='lower right')
-
-        print('\n')
-        print('---------------------')
+        if 'Devign' in label_name:
+            order = [0, 1, 2, 4, 3]
+        elif 'Defects4J' in label_name:
+            order = [0, 1, 3, 2, 4]
+        elif 'BugsInPy' in label_name:
+            order = [0, 3, 2, 1, 4]
+        plt.legend([handles[idx] for idx in order], [labels[idx]
+                for idx in order], loc='lower right')
         plt.savefig(os.path.join('plots/', f'{data_name}_roc.pdf'))
         plt.clf()
         
