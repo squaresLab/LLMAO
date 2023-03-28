@@ -58,20 +58,19 @@ class Utilities():
 
 
 class TokenizeMask():
-    def __init__(self):
+    def __init__(self, pretrain_type):
         self.max_token_len = 2048
         self.codegen_trainer = CodeGenPass()
-        self.pretrain_type = '2B'
-        if self.pretrain_type == '350M':
+        if pretrain_type == '350M':
             self.dim_model = 1024
-        elif self.pretrain_type == '2B':
+        elif pretrain_type == '2B':
             self.dim_model = 2560
-        elif self.pretrain_type == '6B':
+        elif pretrain_type == '6B':
             self.dim_model = 4096
-        elif self.pretrain_type == '16B':
+        elif pretrain_type == '16B':
             self.dim_model = 6144
         self.model, self.tokenizer = self.codegen_trainer.setup_model(
-            type=self.pretrain_type)
+            type=pretrain_type)
 
     def drop_double_newlines(self, code_line):
         code_line_split = code_line.split('\n')
