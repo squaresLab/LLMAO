@@ -1,3 +1,2 @@
-codegen_states/*
-data/codegen_states/*
+data/*
 tb_logs/*

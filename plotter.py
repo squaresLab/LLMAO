@@ -8,7 +8,7 @@ import argparse
 
 def roc_plotter(label_name, labels, probabilities):
     fpr, tpr, _ = roc_curve(labels, probabilities)
-    print(round(roc_auc_score(labels, probabilities), 3))
+    print(f'{label_name} AUC: {round(roc_auc_score(labels, probabilities), 3)}')
     if '16B' in label_name:
         plt.plot(fpr, tpr, linestyle='--',
                  label=label_name, color='red')
@@ -26,19 +26,19 @@ def roc_plotter(label_name, labels, probabilities):
     plt.ylabel('True Positive Rate')
 
 
-def results_plot():
+def results_plot(log_path):
     data_list = ['bugsinpy', 'defects4j', 'devign']
     for data_name in data_list:
         plt.axline((0, 0), slope=1, color='black', label='Random')
-
-        for subdir, _, files in os.walk('plotfiles'):
+        for subdir, _, files in os.walk(log_path):
             for file in files:
                 if '.json' in file:
                     if data_name not in subdir:
                         continue
                     f = open(os.path.join(subdir, file))
                     split_dir = subdir.split('_')
-                    data_name = split_dir[0].replace('plotfiles/', '')
+                    data_name = split_dir[0]
+                    data_name = data_name.split('/')[-1]
                     params = split_dir[1]
                     if params == '256' or params == '1024':
                         params = 'from_scratch'
@@ -54,7 +54,6 @@ def results_plot():
                             filtered_label.append(labels[i])
                     label_name = f'{data_name}-{params}'.replace('--', '-').replace(
                         'bugsinpy', 'BugsInPy').replace('defects4j', 'Defects4J').replace('devign', 'Devign')
-                    print(label_name)
                     roc_plotter(label_name, filtered_label, filtered_prob)
 
         handles, labels = plt.gca().get_legend_handles_labels()
@@ -68,8 +67,11 @@ def results_plot():
                 for idx in order], loc='lower right')
         plt.savefig(os.path.join('plots/', f'{data_name}_roc.pdf'))
         plt.clf()
-        
 
 
 if __name__ == "__main__":
-    results_plot()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("log_path", help="Path to data root")
+    args = ap.parse_args()
+    log_path = args.log_path
+    results_plot(log_path)
