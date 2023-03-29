@@ -1,17 +1,9 @@
 ## LLMAO-Replication
-
 ```
 docker pull huggingface/transformers-pytorch-gpu
 ```
-
 ```
-docker run --name=dan3 -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=3 --mount type=bind,src=/home/aidan/LLMAO,dst=/home huggingface/transformers-pytorch-gpu:4.21.0
-```
-
-```
-docker run --name=dan9 -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=9 --mount type=bind,src=/home/aidan/LLMAO,dst=/home --mount type=bind,src=/data/huggingface/,dst=/models/huggingface aidan
-XDG_CACHE_HOME='/models'
-export XDG_CACHE_HOME
+docker run -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0 --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0
 ```
 
 ```
