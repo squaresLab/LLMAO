@@ -1,43 +1,61 @@
-## LLMAO-Replication
-```
-docker pull huggingface/transformers-pytorch-gpu
-```
-```
-docker run -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0 --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0
-```
+# LLMAO-Replication
 
+I. Requirements
+--------------------
+We recommend using docker for LLMAO.
+
+Pull the huggingface docker image, which includes most requirements
+
+`docker pull huggingface/transformers-pytorch-gpu`
+
+Run a container. Make sure to mount the container to your own directory path. We assume a GPU exists, as training a LLM requires a significant amount of GPU VRAM. If you do not have a GPU, simply remove the line 
+`--runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0` below.
+
+`docker run -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0 --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0`
+
+Install some additional dependencies
 ```
 pip install --upgrade pip
 pip install accelerate
 pip install torchdata
 ```
 
-
-# To obtain results quickly
+II. Obtain results quickly
+---------------------------
 Top scores:
-bash results_topscores.sh
+
+`bash results_topscores.sh`
 
 ROC plots and AUC scores:
-bash results_plot.sh
 
-# To train model yourself
+`bash results_plot.sh`
 
-place /data in LLMAO main repository
-Load codegen final hidden states
-```
-bash codegen_loading.sh
-```
 
-# Train model
-```
-bash fault_localizer.sh
-```
+III. Train model yourself
+---------------------------
+Download Dataset
+1. Click the following url link and download the dataset used in this research.
 
-# Results
-```
-Change log_path=/home/model_logs_tenfold in results_topscores.sh to log_path=/home/model_logs
-python3 top_scores.py
-python3 plotter.py
+    [data](https://mega.nz/folder/hHIjjZoA#v2BxPdzMlHwH0gBDg9oUjQ)
+
+2. Unzip it and put the folder in the same path as this repo
+
+3. Load Codegen final hidden states:
+    change `biggest_model=1` to use Codegen-16B: requires significant amount of GPU vram and storage.
+
+    `bash codegen_loading.sh`
+
+4. Train 
+
+    `bash fault_localizer.sh`
+
+5. Reload results
+
+    Change log_path=/home/model_logs_tenfold in results_topscores.sh to log_path=/home/model_logs
+
+    `python3 top_scores.py`
+
+    `python3 plotter.py`
 
 ```
 

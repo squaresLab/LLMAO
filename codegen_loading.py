@@ -8,7 +8,6 @@ from torch.utils.data import DataLoader
 import json
 from pynvml import *
 import csv
-import itertools
 
 torch.set_printoptions(profile="full")
 csv.field_size_limit(sys.maxsize)
@@ -59,13 +58,8 @@ class CSVDataLoader:
             decoded_program=decoded_program)
         sample_shape = list(hidden_states.size())[0]
         native_sample_size = len(decoded_program.split("\n"))
-        # print(f'original sample shape {x}, sample shape, {sample_shape+1} label shape, {len(label)}')
-
         if sample_shape+1 > MAX_LEN or native_sample_size != (sample_shape+1):
-            print(
-                f'Wrong original shape {native_sample_size} and tokenized shape {sample_shape+1}')
             return None
-
         # Padding
         sample_padding = torch.zeros(
             MAX_LEN - sample_shape, self.dim_model).to(self.device_0)
@@ -112,7 +106,7 @@ def save_data():
     if biggest_model:
         pretrain_types = ['16B']
     else:
-        # pretrain_types = ['350M']# , '2B', '6B']
+        pretrain_types = ['350M', '2B', '6B']
         pretrain_types = ['350M']
 
     for pretrain_type in pretrain_types:
@@ -146,7 +140,6 @@ def save_data():
         if not os.path.isdir(f"{data_name}_{pretrain_type}"):
             os.mkdir(f"{data_name}_{pretrain_type}")
 
-            
         
         for batch_iter, batch in enumerate(data_loaded):
             input = batch[0][0].detach()
