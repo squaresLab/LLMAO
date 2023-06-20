@@ -15,9 +15,9 @@ def top_scores(probabilities, labels, label_name):
         window_split = 15
         prob_cutoffs = [0.1, 0.2, 0.3]
     elif 'defects4j' in label_name:
-        data_split = 3
+        data_split = 15
         window_split = 14
-        prob_cutoffs = [0.3, 0.45, 0.65]
+        prob_cutoffs = [0.05, 0.1, 0.2]
     elif 'devign' in label_name:
         data_split = 20
         window_split = 50
@@ -63,10 +63,11 @@ def results(log_path, data_name, codegen_size):
     total_top_5 = 0
     total_top_3 = 0
     total_top_1 = 0
-    
+    total_bugs = 0
     data_log_path = f'{log_path}/{data_name}'
     for subdir, _, files in os.walk(data_log_path):
         for file in files:
+            print(file)
             if '.json' in file:
                 f = open(os.path.join(subdir, file))
 
@@ -104,12 +105,18 @@ def results(log_path, data_name, codegen_size):
                 total_top_1 += top_1
                 if 'bugsinpy' in label_name:
                     total_bugs = 493
+                elif 'defects4j-1.2.0' in label_name:
+                    total_bugs = 226
+                    # total_bugs = 395 
+                    print(total_bugs)
                 elif 'defects4j' in label_name:
                     total_bugs = 395
                 elif 'devign' in label_name:
                     total_bugs = 5260
-    print(
-        f'Top 1,3,5 of {total_bugs} total bugs for {data_name}-{codegen_size}: [{total_top_1}({top_ratio(total_top_1,total_bugs)}\%) & {total_top_3}({top_ratio(total_top_3,total_bugs)}\%) & {total_top_5}({top_ratio(total_top_5,total_bugs)}\%)]')
+
+    if total_bugs:
+        print(
+            f'Top 1,3,5 of {total_bugs} total bugs for {data_name}-{codegen_size}: [{total_top_1}({top_ratio(total_top_1,total_bugs)}\%) & {total_top_3}({top_ratio(total_top_3,total_bugs)}\%) & {total_top_5}({top_ratio(total_top_5,total_bugs)}\%)]')
 
 
 if __name__ == "__main__":
@@ -118,8 +125,8 @@ if __name__ == "__main__":
     args = ap.parse_args()
     log_path = args.log_path
 
-    data_list = ['defects4j', 'bugsinpy', 'devign']
-    # data_list = ['bugsinpy']
+    # data_list = ['defects4j', 'bugsinpy', 'devign']
+    data_list = ['defects4j-1.2.0']
     for data_name in data_list:
         codegen_size = '16B'
         results(log_path, data_name, codegen_size)
