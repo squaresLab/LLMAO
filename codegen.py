@@ -1,9 +1,8 @@
 import os
-from transformers import CodeGenForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from torch.utils.data import Dataset
 import torch.utils.checkpoint
-from transformers import CodeGenTokenizerFast
 
 
 class VoltronDataset(Dataset):
@@ -36,11 +35,15 @@ class CodeGenPass():
 
     def setup_model(self, type):
         print('Loading codegen model ...')
-        model = CodeGenForCausalLM.from_pretrained(
-            "Salesforce/codegen-" + type + "-multi", output_hidden_states=True, torch_dtype=torch.bfloat16, device_map="auto")
+        starcoder = "bigcode/starcoder"
+        codegen = f"Salesforce/codegen-{type}-multi"
+        codegen_token = "Salesforce/codegen-350M-mono"
+
+        model = AutoModelForCausalLM.from_pretrained(
+            starcoder, output_hidden_states=True, torch_dtype=torch.bfloat16, device_map="balanced")
         model.eval()
-        tokenizer = CodeGenTokenizerFast.from_pretrained(
-            "Salesforce/codegen-350M-mono", fp16=True)
+        tokenizer = AutoTokenizer.from_pretrained(
+            starcoder, fp16=True)
         print('Finished loading')
         return model, tokenizer
 

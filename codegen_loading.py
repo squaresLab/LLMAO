@@ -137,6 +137,7 @@ def save_data():
         except OSError:
             pass 
         os.chdir(save_path)
+        pretrain_type = "starcoder"
         if not os.path.isdir(f"{data_name}_{pretrain_type}"):
             os.mkdir(f"{data_name}_{pretrain_type}")
 
@@ -145,7 +146,7 @@ def save_data():
             input = batch[0][0].detach()
             label = batch[1][0].detach()
             mask = batch[2][0].detach()
-            print_out = False
+            print_out = True
             if print_out:
                 print(input.size())
                 print(label.size())

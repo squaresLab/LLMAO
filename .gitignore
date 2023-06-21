@@ -1,3 +1,4 @@
 data/*
 tb_logs/*
 __pycache__/*
+model_checkpoints/*
