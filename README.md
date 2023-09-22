@@ -52,8 +52,11 @@ line-93 sus-17.59%:         tcg_gen_ext16s_i32(QREG_DIV1, reg);
 ```
 
 Minimum VRAM (GPU memory) required for loading each of the checkpoints:
+
 350M: 2.6GB
+
 6B: 14.7GB
+
 16B: 38GB (recommend at least 2-3 GPUs)
 
 IV. Train model yourself
