@@ -202,6 +202,8 @@ def model_pipe(data_name, pretraining, pretrain_type, datapipe, data_path, dim_m
     # Loading checkpoint and setting up tensorboard logging
     model_path = f'{data_name}_{pretrain_type}'
     model_checkpoint_path = f'model_checkpoints/{model_path}'
+    if '-1.2.0' in model_checkpoint_path:
+        model_checkpoint_path = model_checkpoint_path.replace('-1.2.0', '')
     if load_checkpoint and os.path.exists(model_checkpoint_path):
         print('Loading checkpoint')
         model.load_state_dict(torch.load(model_checkpoint_path))
@@ -366,7 +368,7 @@ def main():
     # Hyperparameters pretraining
     max_lr = 1e-4
     min_lr = 1e-7
-    target_dim = 512
+    target_dim = 1024
     num_epochs = 300
     warmup_iters = 1000
     lr_decay_iters = 20000
@@ -407,14 +409,14 @@ def main():
         max_lr = max_lr / 25
         min_lr = min_lr / 25
 
-    if data_name == 'bugsinpy' or data_name == 'defects4j':
+    if data_name == 'bugsinpy' or 'defects4j' in data_name:
         batch_size = 8
     if data_name == 'devign':
         batch_size = 16
 
     useloop = False
-    ten_fold = True
-    load_checkpoint = False
+    ten_fold = False
+    load_checkpoint = True
     first_tb = False
 
     print('Starting training')

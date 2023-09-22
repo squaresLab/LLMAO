@@ -7,8 +7,16 @@ import argparse
 
 
 def roc_plotter(label_name, labels, probabilities):
-    fpr, tpr, _ = roc_curve(labels, probabilities)
-    print(f'{label_name} AUC: {round(roc_auc_score(labels, probabilities), 3)}')
+    fpr, tpr, thresholds  = roc_curve(labels, probabilities)
+    # print(f'{label_name} AUC: {round(roc_auc_score(labels, probabilities), 3)}')
+
+    for i, threshold in enumerate(thresholds):
+        if round(threshold,3) == 0.01 and 'Devign-16B' in label_name:
+            print('false positive ', round(fpr[i],2))
+            print('true positive ', round(tpr[i],2))
+            print('threshold ', threshold)
+            break
+
     if '16B' in label_name:
         plt.plot(fpr, tpr, linestyle='--',
                  label=label_name, color='red')
@@ -28,6 +36,7 @@ def roc_plotter(label_name, labels, probabilities):
 
 def results_plot(log_path):
     data_list = ['bugsinpy', 'defects4j', 'devign']
+    data_list = ['devign']
     for data_name in data_list:
         plt.axline((0, 0), slope=1, color='black', label='Random')
         for subdir, _, files in os.walk(log_path):
