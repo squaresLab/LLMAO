@@ -65,9 +65,10 @@ def results(log_path, data_name, codegen_size):
     total_top_1 = 0
     total_bugs = 0
     data_log_path = f'{log_path}/{data_name}'
+    # print(data_log_path)
     for subdir, _, files in os.walk(data_log_path):
         for file in files:
-            print(file)
+            # print(file)
             if '.json' in file:
                 f = open(os.path.join(subdir, file))
 
@@ -128,5 +129,5 @@ if __name__ == "__main__":
     log_path = args.log_path
     pretrain_type = args.pretrain_type
 
-    data_name = 'defects4j-1.2.0'
+    data_name = 'defects4j'
     results(log_path, data_name, pretrain_type)

@@ -3,18 +3,16 @@
 I. Requirements
 --------------------
 We recommend using docker for LLMAO.
-
-Pull the huggingface docker image, which includes most requirements
-
-`docker pull huggingface/transformers-pytorch-gpu`
-
-Run a container. Make sure to mount the container to your own directory path. We assume an Nvidia GPU exists, as training and loading an LLM requires a significant amount of GPU VRAM.
-
-`docker run -it --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0`
-
-
-Install some additional dependencies
 ```
+# Pull the huggingface docker image, which includes most requirements
+
+docker pull huggingface/transformers-pytorch-gpu
+
+# Run a container. Make sure to mount the container to your own directory path. We assume an Nvidia GPU exists, as training and loading an LLM requires a significant amount of GPU VRAM.
+
+docker run -it --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0
+
+# Install some additional dependencies
 pip install --upgrade pip
 pip install accelerate
 pip install torchdata
@@ -23,12 +21,18 @@ pip install torchdata
 II. Obtain results quickly
 ---------------------------
 Top scores:
+```
+python3 top_scores.py model_logs $pretrain_type
+# Example
+python3 top_scores.py model_logs 16B
+```
 
-`python3 top_scores.py model_logs 16B`
+
 
 ROC plots and AUC scores:
-
-`python3 plotter.py plotfiles`
+```
+python3 plotter.py plotfiles
+```
 
 III. Demo
 ---------------------------
