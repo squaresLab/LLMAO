@@ -1,0 +1,239 @@
+line-1 sus-1.67%:     gen_flush_cc_op(s);
+
+line-2 sus-1.37%:     gen_jmp_im(s, where);
+
+line-3 sus-0.48%:     gen_helper_raise_exception(tcg_const_i32(nr));
+
+line-7 sus-1.29%:     gen_exception(s, s->insn_pc, EXCP_ADDRESS);
+
+line-10 sus-2.65%:     result = gen_ea(s, insn, opsize, NULL_QREG, addrp, op_sign ? EA_LOADS : EA_LOADU); \
+
+line-11 sus-0.09%:     if (IS_NULL_QREG(result)) { \
+
+line-12 sus-4.63%:         gen_addr_fault(s); \
+
+line-13 sus-1.55%:         return; \
+
+line-14 sus-12.84%:     } \
+
+line-15 sus-1.68%:     } while (0)
+
+line-17 sus-1.22%:     TCGv ea_result = gen_ea(s, insn, opsize, val, addrp, EA_STORE); \
+
+line-18 sus-8.2%:     if (IS_NULL_QREG(ea_result)) { \
+
+line-19 sus-4.34%:         gen_addr_fault(s); \
+
+line-20 sus-8.34%:         return; \
+
+line-21 sus-6.82%:     } \
+
+line-22 sus-1.54%:     } while (0)
+
+line-26 sus-2.53%:     tb = s->tb;
+
+line-27 sus-1.57%:     if (unlikely(s->singlestep_enabled)) {
+
+line-28 sus-2.55%:         gen_exception(s, dest, EXCP_DEBUG);
+
+line-29 sus-1.54%:     } else if ((tb->pc & TARGET_PAGE_MASK) == (dest & TARGET_PAGE_MASK) ||
+
+line-30 sus-1.79%:                (s->pc & TARGET_PAGE_MASK) == (dest & TARGET_PAGE_MASK)) {
+
+line-31 sus-3.03%:         tcg_gen_goto_tb(n);
+
+line-32 sus-6.14%:         tcg_gen_movi_i32(QREG_PC, dest);
+
+line-33 sus-3.36%:         tcg_gen_exit_tb((long)tb + n);
+
+line-34 sus-5.74%:     } else {
+
+line-35 sus-0.7%:         gen_jmp_im(s, dest);
+
+line-36 sus-7.47%:         tcg_gen_exit_tb(0);
+
+line-38 sus-1.08%:     s->is_jmp = DISAS_TB_JUMP;
+
+line-41 sus-6.59%: DISAS_INSN(undef_mac)
+
+line-43 sus-0.24%:     gen_exception(s, s->pc - 2, EXCP_LINEA);
+
+line-46 sus-3.98%: DISAS_INSN(undef_fpu)
+
+line-48 sus-1.02%:     gen_exception(s, s->pc - 2, EXCP_LINEF);
+
+line-51 sus-2.81%: DISAS_INSN(undef)
+
+line-53 sus-2.45%:     gen_exception(s, s->pc - 2, EXCP_UNSUPPORTED);
+
+line-54 sus-1.63%:     cpu_abort(cpu_single_env, "Illegal instruction: %04x @ %08x",
+
+line-55 sus-2.65%:               insn, s->pc - 2);
+
+line-58 sus-0.53%: DISAS_INSN(mulw)
+
+line-60 sus-0.57%:     TCGv reg;
+
+line-61 sus-2.5%:     TCGv tmp;
+
+line-62 sus-12.63%:     TCGv src;
+
+line-63 sus-14.42%:     int sign;
+
+line-65 sus-5.71%:     sign = (insn & 0x100) != 0;
+
+line-66 sus-1.39%:     reg = DREG(insn, 9);
+
+line-67 sus-0.58%:     tmp = tcg_temp_new();
+
+line-68 sus-4.98%:     if (sign)
+
+line-69 sus-3.79%:         tcg_gen_ext16s_i32(tmp, reg);
+
+line-70 sus-3.89%:     else
+
+line-71 sus-6.37%:         tcg_gen_ext16u_i32(tmp, reg);
+
+line-72 sus-3.97%:     SRC_EA(src, OS_WORD, sign, NULL);
+
+line-73 sus-6.05%:     tcg_gen_mul_i32(tmp, tmp, src);
+
+line-74 sus-9.36%:     tcg_gen_mov_i32(reg, tmp);
+
+line-75 sus-0.45%:     gen_logic_cc(s, tmp);
+
+line-78 sus-1.06%: DISAS_INSN(divw)
+
+line-80 sus-15.23%:     TCGv reg;
+
+line-81 sus-17.91%:     TCGv tmp;
+
+line-82 sus-0.45%:     TCGv src;
+
+line-83 sus-0.97%:     int sign;
+
+line-85 sus-0.8%:     sign = (insn & 0x100) != 0;
+
+line-86 sus-5.11%:     reg = DREG(insn, 9);
+
+line-87 sus-10.84%:     if (sign) {
+
+line-88 sus-18.45%:         tcg_gen_ext16s_i32(QREG_DIV1, reg);
+
+line-89 sus-16.82%:     } else {
+
+line-90 sus-20.92%:         tcg_gen_ext16u_i32(QREG_DIV1, reg);
+
+line-92 sus-4.73%:     SRC_EA(src, OS_WORD, sign, NULL);
+
+line-93 sus-2.36%:     tcg_gen_mov_i32(QREG_DIV2, src);
+
+line-94 sus-1.04%:     if (sign) {
+
+line-95 sus-9.26%:         gen_helper_divs(cpu_env, tcg_const_i32(1));
+
+line-96 sus-4.29%:     } else {
+
+line-97 sus-7.82%:         gen_helper_divu(cpu_env, tcg_const_i32(1));
+
+line-100 sus-9.7%:     tmp = tcg_temp_new();
+
+line-101 sus-7.25%:     src = tcg_temp_new();
+
+line-102 sus-1.4%:     tcg_gen_ext16u_i32(tmp, QREG_DIV1);
+
+line-103 sus-3.19%:     tcg_gen_shli_i32(src, QREG_DIV2, 16);
+
+line-104 sus-3.15%:     tcg_gen_or_i32(reg, tmp, src);
+
+line-105 sus-7.35%:     s->cc_op = CC_OP_FLAGS;
+
+line-108 sus-12.52%: DISAS_INSN(divl)
+
+line-110 sus-14.92%:     TCGv num;
+
+line-111 sus-1.16%:     TCGv den;
+
+line-112 sus-0.98%:     TCGv reg;
+
+line-113 sus-0.86%:     uint16_t ext;
+
+line-115 sus-9.16%:     ext = lduw_code(s->pc);
+
+line-116 sus-0.91%:     s->pc += 2;
+
+line-117 sus-0.95%:     if (ext & 0x87f8) {
+
+line-118 sus-0.92%:         gen_exception(s, s->pc - 4, EXCP_UNSUPPORTED);
+
+line-119 sus-1.31%:         return;
+
+line-121 sus-7.75%:     num = DREG(ext, 12);
+
+line-122 sus-2.02%:     reg = DREG(ext, 0);
+
+line-123 sus-1.25%:     tcg_gen_mov_i32(QREG_DIV1, num);
+
+line-124 sus-9.17%:     SRC_EA(den, OS_LONG, 0, NULL);
+
+line-125 sus-5.44%:     tcg_gen_mov_i32(QREG_DIV2, den);
+
+line-126 sus-5.08%:     if (ext & 0x0800) {
+
+line-127 sus-5.7%:         gen_helper_divs(cpu_env, tcg_const_i32(0));
+
+line-128 sus-4.2%:     } else {
+
+line-129 sus-3.33%:         gen_helper_divu(cpu_env, tcg_const_i32(0));
+
+line-131 sus-3.79%:     if ((ext & 7) == ((ext >> 12) & 7)) {
+
+line-132 sus-4.04%:         tcg_gen_mov_i32 (reg, QREG_DIV1);
+
+line-133 sus-5.82%:     } else {
+
+line-134 sus-0.77%:         tcg_gen_mov_i32 (reg, QREG_DIV2);
+
+line-136 sus-0.71%:     s->cc_op = CC_OP_FLAGS;
+
+line-139 sus-0.37%: DISAS_INSN(addsub)
+
+line-141 sus-0.51%:     TCGv reg;
+
+line-142 sus-0.62%:     TCGv dest;
+
+line-143 sus-1.08%:     TCGv src;
+
+line-144 sus-1.08%:     TCGv tmp;
+
+line-145 sus-0.49%:     TCGv addr;
+
+line-146 sus-0.75%:     int add;
+
+line-148 sus-0.9%:     add = (insn & 0x4000) != 0;
+
+line-149 sus-5.94%:     reg = DREG(insn, 9);
+
+line-150 sus-13.19%:     dest = tcg_temp_new();
+
+line-151 sus-0.35%:     if (insn & 0x100) {
+
+line-152 sus-0.8%:         SRC_EA(tmp, OS_LONG, 0, &addr);
+
+line-153 sus-0.97%:         src = reg;
+
+line-154 sus-1.08%:     } else {
+
+line-155 sus-6.82%:         tmp = reg;
+
+line-156 sus-2.34%:         SRC_EA(src, OS_LONG, 0, NULL);
+
+line-158 sus-0.78%:     if (add) {
+
+line-159 sus-4.59%:         tcg_gen_add_i32(dest, tmp, src);
+
+line-160 sus-5.0%:         gen_helper_xflag_lt(QREG_CC_X, dest, src);
+
+line-161 sus-10.55%:         s->cc_op = CC_OP_ADD;
+
+line-162 sus-8.05%:     } else {

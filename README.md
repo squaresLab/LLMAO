@@ -8,21 +8,9 @@ Pull the huggingface docker image, which includes most requirements
 
 `docker pull huggingface/transformers-pytorch-gpu`
 
-Run a container. Make sure to mount the container to your own directory path. We assume a GPU exists, as training a LLM requires a significant amount of GPU VRAM. If you do not have a GPU, simply remove the line 
-`--runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0` below.
+Run a container. Make sure to mount the container to your own directory path. We assume an Nvidia GPU exists, as training and loading an LLM requires a significant amount of GPU VRAM.
 
-`docker run -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0 --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0`
-
-
-
-docker run --name=dan236 -it --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2,3,6 \
---mount type=bind,src=/home/aidan/,dst=/home \
---mount type=bind,src=/data/huggingface/,dst=/models/huggingface \
---mount type=bind,src=/data/aidan/voltron_data,dst=/home/data aidan
-XDG_CACHE_HOME='/models'
-export XDG_CACHE_HOME
-echo $XDG_CACHE_HOME
-conda activate torch
+`docker run -it --mount type=bind,src="path-to-local-directory",dst=/home huggingface/transformers-pytorch-gpu:4.21.0`
 
 
 Install some additional dependencies
@@ -36,17 +24,33 @@ II. Obtain results quickly
 ---------------------------
 Top scores:
 
-`bash results_topscores.sh`
+`python3 top_scores.py model_logs 16B`
 
 ROC plots and AUC scores:
 
-`bash results_plot.sh`
+`python3 plotter.py plotfiles`
 
 III. Demo
 ---------------------------
-`bash demo.sh`
-Change `demo_type='devign'` in demo.sh for a demo of security vulnerability detection.
+We include two example code files here for demonstration: `demo_code.c` and `demo_code.java`.
 
+With actual buggy lines 93, 95 for `demo_code.c`,
+and actual buggy lines 20, 25 for `demo_code.java`.
+
+```
+python3 demo.py $demo_type $pretrain_type $code_file_path
+example: python3 demo.py devign 350M demo_code.c
+
+
+output: 
+line-95 sus-21.35%:         tcg_gen_ext16u_i32(QREG_DIV1, reg);
+line-93 sus-17.59%:         tcg_gen_ext16s_i32(QREG_DIV1, reg);
+```
+
+Minimum VRAM (GPU memory) required for loading each of the checkpoints:
+350M: 2.6GB
+6B: 14.7GB
+16B: 38GB (recommend at least 2-3 GPUs)
 
 IV. Train model yourself
 ---------------------------
@@ -74,6 +78,6 @@ Download Dataset
 
     `python3 plotter.py`
 
-```
+
 
 

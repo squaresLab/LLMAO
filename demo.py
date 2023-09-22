@@ -4,31 +4,42 @@ import argparse
 from transformer import VoltronTransformerPretrained, TokenizeMask
 
 
-def buglines_prediction(checkpoint_path, demo_type):
-    pretrain_type = '350M'
-    dim_model = 1024
+def buglines_prediction(demo_type, code_file_path, pretrain_type):
     num_layer = 2
     target_dim = 512
-    num_head = 8
+    if demo_type == 'defects4j' and pretrain_type == "16B":
+        target_dim = 1024
+    # start_mem = torch.cuda.mem_get_info()[0]
+    if pretrain_type == '16B':
+        dim_model = 6144
+    elif pretrain_type == '6B':
+        dim_model = 4096
+    elif pretrain_type == '350M':
+        dim_model = 1024
+    
+    if target_dim == 1024:
+        num_head = 16
+    elif target_dim == 512:
+        num_head = 8
+    elif target_dim == 256:
+        num_head = 4
+
     model = VoltronTransformerPretrained(
         num_layer=num_layer, dim_model=dim_model, num_head=num_head, target_dim=target_dim
     )
     model.load_state_dict(torch.load(
-        f'{checkpoint_path}/{demo_type}_{pretrain_type}'), strict=False)
+        f'model_checkpoints/{demo_type}_{pretrain_type}'), strict=False)
     model.eval()
+    
     tokenize_mask = TokenizeMask(pretrain_type)
-    if demo_type == 'defects4j':
-        code_file_path = '/home/demo_code.java'
-    else:
-        code_file_path = '/home/demo_code.c'
     with open(code_file_path) as f:
         code_file = f.readlines()
         filtered_code = []
         for code_line in code_file:
-            if demo_type =='defects4j' and code_line and '/' not in code_line and '*' not in code_line and code_line not in filtered_code:
-                filtered_code.append(code_line)
-            elif demo_type =='devign' and code_line and '/' not in code_line and '*' not in code_line and '#' not in code_line:
-                filtered_code.append(code_line)
+            if code_line and not code_line.strip().startswith('/') and not code_line.strip().startswith('*') and not code_line.strip().startswith('#') and not code_line.strip() == '{' and not code_line.strip() == '}' and code_line not in filtered_code:
+                if len(code_line.strip()) > 0:
+                    filtered_code.append(code_line)
+
 
         code_lines = ''.join(filtered_code)
         input, mask, input_size, decoded_input = tokenize_mask.generate_token_mask(
@@ -36,6 +47,8 @@ def buglines_prediction(checkpoint_path, demo_type):
         input = input[None, :]
         mask = mask[None, :]
         predictions = model(input, mask)
+        # end_mem = torch.cuda.mem_get_info()[0]
+        # print(f'memory usage {(start_mem - end_mem)/10000000}')
         probabilities = torch.flatten(torch.sigmoid(predictions))
         real_indices = torch.flatten(mask == 1)            
         probabilities = probabilities[real_indices].tolist()        
@@ -45,7 +58,7 @@ def buglines_prediction(checkpoint_path, demo_type):
         decoded_input = "\n".join(decoded_input)
         probabilities = probabilities[:input_size+1]
         most_sus = list(
-            map(lambda x: 1 if x > 0.15 else 0, probabilities))
+            map(lambda x: 1 if x > 0 else 0, probabilities))
         result_dict = []
         for i, p in enumerate(most_sus):
             if p == 1 and len(filtered_code[i].strip()) > 1:
@@ -54,7 +67,7 @@ def buglines_prediction(checkpoint_path, demo_type):
         result_dict = sorted(result_dict, key=lambda d: d['score'], reverse=True)
         for res in result_dict:
             if demo_type == 'defects4j':
-                bug_index = res["line"]-1 # Java codegen tokenizer offset
+                bug_index = res["line"]-1 
             else:
                 bug_index = res["line"]
             print(f'line-{res["line"]} sus-{res["score"]}%: {filtered_code[bug_index]}')
@@ -62,9 +75,11 @@ def buglines_prediction(checkpoint_path, demo_type):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("checkpoint_path")
     ap.add_argument("demo_type")
+    ap.add_argument("pretrain_type")
+    ap.add_argument("code_file_path")
     args = ap.parse_args()
-    checkpoint_path = args.checkpoint_path
     demo_type = args.demo_type
-    buglines_prediction(checkpoint_path, demo_type)
+    pretrain_type = args.pretrain_type
+    code_file_path = args.code_file_path
+    buglines_prediction(demo_type, code_file_path, pretrain_type)

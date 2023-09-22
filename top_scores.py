@@ -122,11 +122,11 @@ def results(log_path, data_name, codegen_size):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("log_path", help="Path to data root")
+    ap.add_argument("pretrain_type", help="Pretrain size")
+
     args = ap.parse_args()
     log_path = args.log_path
+    pretrain_type = args.pretrain_type
 
-    # data_list = ['defects4j', 'bugsinpy', 'devign']
-    data_list = ['defects4j-1.2.0']
-    for data_name in data_list:
-        codegen_size = '16B'
-        results(log_path, data_name, codegen_size)
+    data_name = 'defects4j-1.2.0'
+    results(log_path, data_name, pretrain_type)

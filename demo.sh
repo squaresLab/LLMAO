@@ -1,3 +1,5 @@
-checkpoint_path=model_checkpoints
-demo_type=defects4j # defects4j or devign
-python3 demo.py $checkpoint_path $demo_type
+demo_type=defects4j
+pretrain_type=16B
+code_file_path=demo_code.java
+
+python3 demo.py $demo_type $pretrain_type $code_file_path
