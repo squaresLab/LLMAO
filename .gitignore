@@ -2,4 +2,4 @@ data/*
 tb_logs/*
 __pycache__/*
 model_checkpoints/defects4j_16B
-model_checkpoints/devign_16B
+# model_checkpoints/devign_16B
