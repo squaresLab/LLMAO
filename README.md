@@ -1,4 +1,4 @@
-# LLMAO-Replication
+# LLMAO
 
 I. Requirements
 --------------------
@@ -18,23 +18,13 @@ pip install accelerate
 pip install torchdata
 ```
 
-II. Obtain results quickly
----------------------------
-Top scores:
-```
-python3 top_scores.py model_logs $pretrain_type
-# Example
-python3 top_scores.py model_logs 16B
-```
-
-
 
 ROC plots and AUC scores:
 ```
 python3 plotter.py plotfiles
 ```
 
-III. Demo
+II. Demo
 ---------------------------
 We include two example code files here for demonstration: `demo_code.c` and `demo_code.java`.
 
@@ -58,6 +48,17 @@ Minimum VRAM (GPU memory) required for loading each of the checkpoints:
 6B: 14.7GB
 
 16B: 38GB (recommend at least 2-3 GPUs)
+
+
+III. Obtain some top scores
+---------------------------
+Top scores:
+```
+python3 top_scores.py model_logs $pretrain_type
+# Example
+python3 top_scores.py model_logs 16B
+```
+
 
 IV. Train model yourself
 ---------------------------
