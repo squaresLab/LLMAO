@@ -40,10 +40,10 @@ class CodeGenPass():
         codegen_token = "Salesforce/codegen-350M-mono"
 
         model = AutoModelForCausalLM.from_pretrained(
-            starcoder, output_hidden_states=True, torch_dtype=torch.bfloat16, device_map="balanced")
+            codegen, output_hidden_states=True, torch_dtype=torch.bfloat16, device_map="balanced")
         model.eval()
         tokenizer = AutoTokenizer.from_pretrained(
-            starcoder, fp16=True)
+            codegen_token, fp16=True)
         print('Finished loading')
         return model, tokenizer
 
