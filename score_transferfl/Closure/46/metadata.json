@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 46, "bug_line_number": [142, 143, 145, 146, 147, 150, 154], "classpath": "com.google.javascript.rhino.jstype.RecordType", "num_lines": 20}

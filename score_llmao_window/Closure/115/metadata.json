@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 115, "bug_line_number": [697, 698, 699, 700, 701, 702, 701, 702, 698, 699, 730, 731, 730, 731], "classpath": "com.google.javascript.jscomp.FunctionInjector", "num_lines": 20}

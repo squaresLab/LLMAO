@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 50, "bug_line_number": [376, 384, 391], "classpath": "com.google.javascript.jscomp.PeepholeReplaceKnownMethods", "num_lines": 20}

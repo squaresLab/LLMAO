@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 41, "bug_line_number": [264, 293, 444, 484], "classpath": "com.google.javascript.jscomp.FunctionTypeBuilder", "num_lines": 20}

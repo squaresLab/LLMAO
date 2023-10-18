@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 53, "bug_line_number": [330, 333], "classpath": "com.google.javascript.jscomp.InlineObjectLiterals", "num_lines": 20}

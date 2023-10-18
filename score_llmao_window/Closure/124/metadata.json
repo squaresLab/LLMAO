@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 124, "bug_line_number": [213, 213, 214], "classpath": "com.google.javascript.jscomp.ExploitAssigns", "num_lines": 20}

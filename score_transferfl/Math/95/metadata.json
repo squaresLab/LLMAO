@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 95, "bug_line_number": [144, 147, 148], "classpath": "org.apache.commons.math.distribution.FDistributionImpl", "num_lines": 20}

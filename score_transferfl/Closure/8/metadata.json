@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 8, "bug_line_number": [202], "classpath": "com.google.javascript.jscomp.CollapseVariableDeclarations", "num_lines": 20}

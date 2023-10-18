@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 71, "bug_line_number": [416], "classpath": "com.google.javascript.jscomp.CheckAccessControls", "num_lines": 20}

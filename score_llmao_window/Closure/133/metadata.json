@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 133, "bug_line_number": [2400, 2401], "classpath": "com.google.javascript.jscomp.parsing.JsDocInfoParser", "num_lines": 20}

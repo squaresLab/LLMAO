@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 126, "bug_line_number": [141, 142, 143, 141, 142], "classpath": "com.google.javascript.jscomp.MinimizeExitPoints", "num_lines": 20}

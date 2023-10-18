@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 42, "bug_line_number": [413, 409, 413], "classpath": "org.apache.commons.math.optimization.linear.SimplexTableau", "num_lines": 20}

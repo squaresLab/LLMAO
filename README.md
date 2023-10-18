@@ -1,5 +1,7 @@
 # LLMAO
 
+LLMAO is a large language model based fault localization tool, associated with the following [paper](https://arxiv.org/abs/2310.01726) published at ICSE-2024.
+
 I. Requirements
 --------------------
 We recommend using docker for LLMAO.
@@ -87,5 +89,38 @@ Download Dataset
     `python3 plotter.py`
 
 
+V. Run LLMAO on file level
+---------------------------
+LLMAO was neither trained nor evaluated on file level due to its limited context window of 128 lines.
+The training and evaluation procedure of LLMAO is described in Section 3.1 of the paper.
+
+To run LLMAO on a much larger file, one way is to split the file into multiple chunks of 128 lines and combine scores at the end. 
+However, this way of using LLMAO removes valuable context across the entire file, and buggy or vulnerable lines across multiple chunks cannot be accuracy detected.
+We include the method for running LLMAO on Defects4J entire files in this replication package to showcase the limitiation of our LLM-based fault localization.
+We hope that this limitation can be reduced as LLMs grow larger and can process significantly larger context windows.
+Enter the following:
+```
+python3 top_score_window.py
+```
+Output:
+
+```
+Top score for llmao_window
+top 5: 77
+top 3: 52
+top 1: 24
+
+Top score for Transfer
+top 5: 145
+top 3: 126
+top 1: 69
+```
+
+In which LLMAO has much weaker results than Transfer that is trained on all files for each individual D4J bug.
+
+To remake LLMAO file level scores:
+```
+python3 llmao_d4j_window.py
+```
 
 

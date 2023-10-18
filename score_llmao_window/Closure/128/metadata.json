@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 128, "bug_line_number": [791, 784, 785], "classpath": "com.google.javascript.jscomp.CodeGenerator", "num_lines": 20}

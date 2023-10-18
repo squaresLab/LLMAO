@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 56, "bug_line_number": [237, 238, 239, 240, 238, 239, 240, 242, 243], "classpath": "org.apache.commons.math.util.MultidimensionalCounter", "num_lines": 20}

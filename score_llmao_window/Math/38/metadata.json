@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 38, "bug_line_number": [1660, 1662, 1663, 1752], "classpath": "org.apache.commons.math.optimization.direct.BOBYQAOptimizer", "num_lines": 20}

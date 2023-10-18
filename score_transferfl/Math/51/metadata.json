@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 51, "bug_line_number": [178, 192, 178, 187, 192], "classpath": "org.apache.commons.math.analysis.solvers.BaseSecantSolver", "num_lines": 20}

@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 39, "bug_line_number": [249, 252], "classpath": "org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator", "num_lines": 20}

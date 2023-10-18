@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 3, "bug_line_number": [155, 155, 156, 367, 376], "classpath": "com.google.javascript.jscomp.FlowSensitiveInlineVariables", "num_lines": 20}

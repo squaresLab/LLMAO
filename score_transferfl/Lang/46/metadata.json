@@ -1,0 +1,1 @@
+{"project": "Lang", "bug_id": 46, "bug_line_number": [86, 102, 127, 143, 160, 244, 245], "classpath": "org.apache.commons.lang.StringEscapeUtils", "num_lines": 20}

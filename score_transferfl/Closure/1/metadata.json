@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 1, "bug_line_number": [380], "classpath": "com.google.javascript.jscomp.RemoveUnusedVars", "num_lines": 20}

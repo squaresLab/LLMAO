@@ -1,0 +1,1 @@
+{"project": "Mockito", "bug_id": 24, "bug_line_number": [76], "classpath": "org.mockito.internal.stubbing.defaultanswers.ReturnsEmptyValues", "num_lines": 20}

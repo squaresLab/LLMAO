@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 30, "bug_line_number": [396, 157, 69, 70, 397, 398, 429, 431], "classpath": "com.google.javascript.jscomp.MustBeReachingVariableDef", "num_lines": 20}

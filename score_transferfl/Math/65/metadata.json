@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 65, "bug_line_number": [240, 241, 242, 243, 241, 242, 245, 258], "classpath": "org.apache.commons.math.optimization.general.AbstractLeastSquaresOptimizer", "num_lines": 20}

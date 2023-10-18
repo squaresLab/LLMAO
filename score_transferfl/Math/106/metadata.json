@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 106, "bug_line_number": [157, 168, 192, 204], "classpath": "org.apache.commons.math.fraction.ProperFractionFormat", "num_lines": 20}

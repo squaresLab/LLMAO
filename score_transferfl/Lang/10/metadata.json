@@ -1,0 +1,1 @@
+{"project": "Lang", "bug_id": 10, "bug_line_number": [304, 307, 308, 309, 310, 308, 309, 310, 312, 307, 308, 314], "classpath": "org.apache.commons.lang3.time.FastDateParser", "num_lines": 20}

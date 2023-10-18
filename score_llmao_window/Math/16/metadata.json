@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 16, "bug_line_number": [397, 458, 393, 395, 397, 399, 454, 456, 458, 460], "classpath": "org.apache.commons.math3.util.FastMath", "num_lines": 20}

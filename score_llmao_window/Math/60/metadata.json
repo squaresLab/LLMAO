@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 60, "bug_line_number": [126, 127, 130, 126, 130, 131, 132, 133, 130, 132, 135, 135, 130, 135, 126, 130], "classpath": "org.apache.commons.math.distribution.NormalDistributionImpl", "num_lines": 20}

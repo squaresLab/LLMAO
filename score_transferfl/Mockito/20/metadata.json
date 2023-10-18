@@ -1,0 +1,1 @@
+{"project": "Mockito", "bug_id": 20, "bug_line_number": [34, 40, 32, 34, 40], "classpath": "org.mockito.internal.creation.bytebuddy.ByteBuddyMockMaker", "num_lines": 20}

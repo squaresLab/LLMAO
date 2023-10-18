@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 103, "bug_line_number": [766, 886, 887, 888, 889, 890, 891, 892, 893, 894], "classpath": "com.google.javascript.jscomp.DisambiguateProperties", "num_lines": 20}

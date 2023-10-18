@@ -1,0 +1,1 @@
+{"project": "Chart", "bug_id": 21, "bug_line_number": [158, 740, 741], "classpath": "org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset", "num_lines": 20}

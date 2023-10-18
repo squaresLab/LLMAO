@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 13, "bug_line_number": [126, 126, 127, 128], "classpath": "com.google.javascript.jscomp.PeepholeOptimizationsPass", "num_lines": 20}

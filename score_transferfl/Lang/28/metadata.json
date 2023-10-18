@@ -1,0 +1,1 @@
+{"project": "Lang", "bug_id": 28, "bug_line_number": [63, 63, 64], "classpath": "org.apache.commons.lang3.text.translate.NumericEntityUnescaper", "num_lines": 20}

@@ -9,7 +9,6 @@ def buglines_prediction(demo_type, code_file_path, pretrain_type):
     target_dim = 512
     if demo_type == 'defects4j' and pretrain_type == "16B":
         target_dim = 1024
-    # start_mem = torch.cuda.mem_get_info()[0]
     if pretrain_type == '16B':
         dim_model = 6144
     elif pretrain_type == '6B':
@@ -47,8 +46,6 @@ def buglines_prediction(demo_type, code_file_path, pretrain_type):
         input = input[None, :]
         mask = mask[None, :]
         predictions = model(input, mask)
-        # end_mem = torch.cuda.mem_get_info()[0]
-        # print(f'memory usage {(start_mem - end_mem)/10000000}')
         probabilities = torch.flatten(torch.sigmoid(predictions))
         real_indices = torch.flatten(mask == 1)            
         probabilities = probabilities[real_indices].tolist()        

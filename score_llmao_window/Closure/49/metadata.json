@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 49, "bug_line_number": [91, 92, 93, 94, 92, 93, 96, 97, 91, 99, 125, 136, 116, 152, 152, 174, 175, 157], "classpath": "com.google.javascript.jscomp.MakeDeclaredNamesUnique", "num_lines": 20}

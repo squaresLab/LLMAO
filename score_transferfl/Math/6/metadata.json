@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 6, "bug_line_number": [191, 193, 227, 214, 217, 223, 277, 158, 175, 106, 108, 160, 51, 322, 325, 489, 387, 390], "classpath": "org.apache.commons.math3.optim.nonlinear.scalar.noderiv.PowellOptimizer", "num_lines": 20}

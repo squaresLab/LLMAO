@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 66, "bug_line_number": [44, 46, 47, 57, 60, 61, 66, 119, 119, 120, 126, 127, 200, 201, 238, 241, 243], "classpath": "org.apache.commons.math.optimization.univariate.BrentOptimizer", "num_lines": 20}

@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 108, "bug_line_number": [581, 249, 251, 253, 256, 270, 271, 273, 275, 315, 316, 317, 318, 319], "classpath": "com.google.javascript.jscomp.ScopedAliases", "num_lines": 20}

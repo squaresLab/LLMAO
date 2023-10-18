@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 45, "bug_line_number": [49, 50, 51, 52], "classpath": "org.apache.commons.math.linear.OpenMapRealMatrix", "num_lines": 20}

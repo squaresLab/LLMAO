@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 58, "bug_line_number": [206, 207, 208], "classpath": "com.google.javascript.jscomp.LiveVariablesAnalysis", "num_lines": 20}

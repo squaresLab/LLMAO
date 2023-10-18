@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 67, "bug_line_number": [92, 97], "classpath": "org.apache.commons.math.optimization.MultiStartUnivariateRealOptimizer", "num_lines": 20}

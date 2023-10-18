@@ -1,0 +1,1 @@
+{"project": "Mockito", "bug_id": 10, "bug_line_number": [70, 88, 99], "classpath": "org.mockito.internal.stubbing.defaultanswers.ReturnsDeepStubs", "num_lines": 20}

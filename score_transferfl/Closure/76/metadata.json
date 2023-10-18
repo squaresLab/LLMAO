@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 76, "bug_line_number": [309, 372, 372, 373, 294, 295, 296, 301, 306, 307, 310, 313, 341, 358, 360, 361, 364, 365], "classpath": "com.google.javascript.jscomp.DeadAssignmentsElimination", "num_lines": 20}

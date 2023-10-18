@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 81, "bug_line_number": [905, 906, 1543, 602, 603], "classpath": "org.apache.commons.math.linear.EigenDecompositionImpl", "num_lines": 20}

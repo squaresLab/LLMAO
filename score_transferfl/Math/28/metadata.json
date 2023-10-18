@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 28, "bug_line_number": [115, 119, 138], "classpath": "org.apache.commons.math3.optimization.linear.SimplexSolver", "num_lines": 20}

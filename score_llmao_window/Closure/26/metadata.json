@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 26, "bug_line_number": [127, 208, 221, 222, 223, 224, 225, 226, 227], "classpath": "com.google.javascript.jscomp.ProcessCommonJSModules", "num_lines": 20}

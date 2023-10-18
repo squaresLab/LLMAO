@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 117, "bug_line_number": [756, 757, 758, 759, 760, 759, 760, 757, 758, 763, 766, 763, 766, 731], "classpath": "com.google.javascript.jscomp.TypeValidator", "num_lines": 20}

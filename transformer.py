@@ -2,8 +2,8 @@ import torch
 import torch.utils.checkpoint
 from torch import nn
 from transformers import AutoConfig, CodeGenTokenizerFast
-from codegen import CodeGenPass
-from modeling_codegen import CodeGenBlock
+from llmao.codegen import CodeGenPass
+from llmao.modeling_codegen import CodeGenBlock
 import os
 import numpy as np
 import math

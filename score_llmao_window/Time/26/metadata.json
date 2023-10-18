@@ -1,0 +1,1 @@
+{"project": "Time", "bug_id": 26, "bug_line_number": [436, 448, 460, 467, 481, 528, 540], "classpath": "org.joda.time.chrono.ZonedChronology", "num_lines": 20}

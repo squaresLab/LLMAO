@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 105, "bug_line_number": [1477, 1483, 1488, 1492, 1500], "classpath": "com.google.javascript.jscomp.FoldConstants", "num_lines": 20}

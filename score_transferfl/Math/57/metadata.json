@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 57, "bug_line_number": [175], "classpath": "org.apache.commons.math.stat.clustering.KMeansPlusPlusClusterer", "num_lines": 20}

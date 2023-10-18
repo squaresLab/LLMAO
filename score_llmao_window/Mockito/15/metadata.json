@@ -1,0 +1,1 @@
+{"project": "Mockito", "bug_id": 15, "bug_line_number": [25, 24, 25], "classpath": "org.mockito.internal.configuration.injection.FinalMockCandidateFilter", "num_lines": 20}

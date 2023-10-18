@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 97, "bug_line_number": [138, 138, 147, 141, 138, 147, 151], "classpath": "org.apache.commons.math.analysis.BrentSolver", "num_lines": 20}

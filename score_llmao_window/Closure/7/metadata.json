@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 7, "bug_line_number": [613], "classpath": "com.google.javascript.jscomp.type.ChainableReverseAbstractInterpreter", "num_lines": 20}
