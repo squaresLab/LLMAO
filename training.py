@@ -9,11 +9,29 @@ import torch.utils.checkpoint
 from torch import nn
 from torch import optim
 from torch.utils.data import DataLoader
-from transformer import PreloadedDataset, NaiveDataset, VoltronTransformerPretrained, VoltronTransformer, Utilities
+from transformer import (
+    PreloadedDataset,
+    NaiveDataset,
+    VoltronTransformerPretrained,
+    VoltronTransformer,
+    Utilities,
+)
 
 
-def train_one_epoch(model_utils, tb_writer, tb_checkpoint, train_dl, optimizer, model, max_lr, min_lr, warmup_iters, e_batch_iter, lr_decay_iters):
-    """ Training loop for an entire epoch
+def train_one_epoch(
+    model_utils,
+    tb_writer,
+    tb_checkpoint,
+    train_dl,
+    optimizer,
+    model,
+    max_lr,
+    min_lr,
+    warmup_iters,
+    e_batch_iter,
+    lr_decay_iters,
+):
+    """Training loop for an entire epoch
 
     Args:
         epoch_index (int): epoch index number
@@ -34,18 +52,19 @@ def train_one_epoch(model_utils, tb_writer, tb_checkpoint, train_dl, optimizer, 
         float: average training loss, accuracy, and precision per epoch
     """
 
-    running_loss = 0.
-    last_loss = 0.
+    running_loss = 0.0
+    last_loss = 0.0
     last_batch_iter = 0
     for batch_iter, (input, label, mask) in enumerate(train_dl):
         # Set up loss function
         loss_fn = nn.BCEWithLogitsLoss(reduction="none")
         # Determine the learning rate for this iteration
-        current_batch_iter = e_batch_iter+batch_iter
+        current_batch_iter = e_batch_iter + batch_iter
         lr = model_utils.get_lr(
-            current_batch_iter, lr_decay_iters, max_lr, min_lr, warmup_iters)
+            current_batch_iter, lr_decay_iters, max_lr, min_lr, warmup_iters
+        )
         for param_group in optimizer.param_groups:
-            param_group['lr'] = lr
+            param_group["lr"] = lr
         # Forward pass
         predictions = model(input, mask)
         # Loss calculation
@@ -61,13 +80,12 @@ def train_one_epoch(model_utils, tb_writer, tb_checkpoint, train_dl, optimizer, 
             optimizer.zero_grad(set_to_none=True)
         # Add to running results
         running_loss += loss.item()
-        if batch_iter % tb_checkpoint == (tb_checkpoint-1):
+        if batch_iter % tb_checkpoint == (tb_checkpoint - 1):
             last_loss = running_loss / tb_checkpoint
             tb_x = e_batch_iter + batch_iter + 1
-            tb_writer.add_scalar('Train loss', last_loss, tb_x)
-            tb_writer.add_scalar(
-                'Learning rate', optimizer.param_groups[0]["lr"], tb_x)
-            running_loss = 0.
+            tb_writer.add_scalar("Train loss", last_loss, tb_x)
+            tb_writer.add_scalar("Learning rate", optimizer.param_groups[0]["lr"], tb_x)
+            running_loss = 0.0
         if batch_iter > 800:
             break
     last_batch_iter = batch_iter
@@ -75,7 +93,7 @@ def train_one_epoch(model_utils, tb_writer, tb_checkpoint, train_dl, optimizer, 
 
 
 def validation_one_epoch(model_utils, validation_loader, model, pretraining):
-    """ Validation loop
+    """Validation loop
 
     Args:
         validation_loader (torch.datapipe): validation data
@@ -96,7 +114,6 @@ def validation_one_epoch(model_utils, validation_loader, model, pretraining):
 
     with torch.no_grad():
         for batch_iter, (input, label, mask) in enumerate(validation_loader):
-            
             # print(input.shape)
             predictions = model(input, mask)
             vloss = loss_fn(predictions, label)
@@ -104,15 +121,15 @@ def validation_one_epoch(model_utils, validation_loader, model, pretraining):
             # Logging tensors
             flattened_input = torch.flatten(input)
             flattened_labels = torch.flatten(label)
-            flattened_probabilities = torch.flatten(
-                torch.sigmoid(predictions))
-            
-            real_indices = torch.flatten(mask == 1)            
+            flattened_probabilities = torch.flatten(torch.sigmoid(predictions))
+
+            real_indices = torch.flatten(mask == 1)
             flattened_probabilities = flattened_probabilities[real_indices]
             flattened_labels = flattened_labels[real_indices]
 
             nl_indices = torch.where(
-                (flattened_input == 198) | (flattened_input == 628))
+                (flattened_input == 198) | (flattened_input == 628)
+            )
             if len(nl_indices) > 1:
                 nl_index = nl_indices[1]
             else:
@@ -126,12 +143,12 @@ def validation_one_epoch(model_utils, validation_loader, model, pretraining):
             all_probabilities.append(flattened_probabilities)
             all_labels.append(flattened_labels)
             vloss *= mask
-            vloss = torch.mean(torch.sum(vloss, -1) /
-                               (1e-6 + torch.sum(mask, -1)))
+            vloss = torch.mean(torch.sum(vloss, -1) / (1e-6 + torch.sum(mask, -1)))
             running_vloss += vloss.item()
-            
+
             vrecall, vprec, vaccuracy = model_utils.recall_prec_function(
-                predictions, label, mask)
+                predictions, label, mask
+            )
             running_vrec += vrecall
             running_vprec += vprec
             running_vacc += vaccuracy
@@ -149,8 +166,27 @@ def validation_one_epoch(model_utils, validation_loader, model, pretraining):
     return avg_vloss, avg_vrec, avg_vprec, avg_vacc, cat_probabilities, cat_labels
 
 
-def model_pipe(data_name, pretraining, pretrain_type, datapipe, dim_model=1024, num_head=16, num_layer=2, target_dim=256, batch_size=8, num_epochs=1, max_lr=1e-4, min_lr=1e-6, warmup_iters=500, tb_checkpoint=10, load_checkpoint=False, first_tb=True, lr_decay_iters=10000, tenfold_iteration=9):
-    """ Entire model pipeline
+def model_pipe(
+    data_name,
+    pretraining,
+    pretrain_type,
+    datapipe,
+    dim_model=1024,
+    num_head=16,
+    num_layer=2,
+    target_dim=256,
+    batch_size=8,
+    num_epochs=1,
+    max_lr=1e-4,
+    min_lr=1e-6,
+    warmup_iters=500,
+    tb_checkpoint=10,
+    load_checkpoint=False,
+    first_tb=True,
+    lr_decay_iters=10000,
+    tenfold_iteration=9,
+):
+    """Entire model pipeline
 
     Args:
         datapipe (torch.datapipe): Input data
@@ -159,7 +195,7 @@ def model_pipe(data_name, pretraining, pretrain_type, datapipe, dim_model=1024, 
         num_epochs (int, optional): total number of epochs to run. Defaults to 1.
     """
     # Load data into batches
-    
+
     # Shuffle indices before splitting into training and validation set.
     all_indices = list(range(len(datapipe)))
     random.seed(42)  # Seed to ensure shuffling deterministically.
@@ -169,148 +205,174 @@ def model_pipe(data_name, pretraining, pretrain_type, datapipe, dim_model=1024, 
         tenfold_float = tenfold_iteration / 10
         valid_index_start = int(tenfold_float * len(datapipe))
         valid_index_end = valid_index_start + int(0.1 * len(datapipe))
-        valid_indices = all_indices[valid_index_start : valid_index_end]
+        valid_indices = all_indices[valid_index_start:valid_index_end]
         train_indices = [i for i in range(len(datapipe)) if i not in valid_indices]
-        print(f'Training size={len(train_indices)},\n\
+        print(
+            f"Training size={len(train_indices)},\n\
         Validation size={len(valid_indices)},\n\
         Validation indices={valid_index_start}, {valid_index_end}\n\
-        Total size={len(datapipe)}')
+        Total size={len(datapipe)}"
+        )
     else:
         train_size = int(0.9 * len(datapipe))
         train_indices = all_indices[:train_size]
         valid_indices = all_indices[train_size:]
-        
+
     train_dp = torch.utils.data.Subset(datapipe, train_indices)
     valid_dp = torch.utils.data.Subset(datapipe, valid_indices)
-    train_dl = DataLoader(
-        dataset=train_dp, batch_size=batch_size, shuffle=True)
+    train_dl = DataLoader(dataset=train_dp, batch_size=batch_size, shuffle=True)
     validation_loader = DataLoader(
-        dataset=valid_dp, batch_size=batch_size, shuffle=True)
+        dataset=valid_dp, batch_size=batch_size, shuffle=True
+    )
 
     if pretraining:
         model = VoltronTransformerPretrained(
-            num_layer=num_layer, dim_model=dim_model, num_head=num_head, target_dim=target_dim
+            num_layer=num_layer,
+            dim_model=dim_model,
+            num_head=num_head,
+            target_dim=target_dim,
         )
     else:
         num_layer = 8
         model = VoltronTransformer(
-            num_layer=num_layer, dim_model=target_dim, num_head=num_head)
+            num_layer=num_layer, dim_model=target_dim, num_head=num_head
+        )
 
     model = model.to("cuda:0")
     model_utils = Utilities()
 
     # Loading checkpoint and setting up tensorboard logging
-    model_path = f'{data_name}_{pretrain_type}'
-    model_checkpoint_path = f'model_checkpoints/{model_path}'
-    if '-1.2.0' in model_checkpoint_path:
-        model_checkpoint_path = model_checkpoint_path.replace('-1.2.0', '')
+    model_path = f"{data_name}_{pretrain_type}"
+    model_checkpoint_path = f"model_checkpoints/{model_path}"
+    if "-1.2.0" in model_checkpoint_path:
+        model_checkpoint_path = model_checkpoint_path.replace("-1.2.0", "")
     if load_checkpoint and os.path.exists(model_checkpoint_path):
-        print('Loading checkpoint')
+        print("Loading checkpoint")
         model.load_state_dict(torch.load(model_checkpoint_path))
     else:
-        print('Training new model')
+        print("Training new model")
 
     if pretraining:
-        tb_folder = f'tb_logs/{model_path}_{str(target_dim)}'
+        tb_folder = f"tb_logs/{model_path}_{str(target_dim)}"
         for f in tb_folder:
             try:
                 os.remove(f)
             except:
                 pass
         tb_writer = SummaryWriter(tb_folder)
-        log_folder = f'model_logs/{data_name}/{model_path}_{target_dim}_{tenfold_iteration}'
+        log_folder = (
+            f"model_logs/{data_name}/{model_path}_{target_dim}_{tenfold_iteration}"
+        )
     else:
-        tb_folder = f'tb_logs/{data_name}_{str(target_dim)}_{target_dim}_scratch{str(num_layer)}'
+        tb_folder = f"tb_logs/{data_name}_{str(target_dim)}_{target_dim}_scratch{str(num_layer)}"
         for f in tb_folder:
             try:
                 os.remove(f)
             except:
                 pass
-        log_folder = f'model_logs/{data_name}/{data_name}_{target_dim}_scratch_{tenfold_iteration}'
+        log_folder = f"model_logs/{data_name}/{data_name}_{target_dim}_scratch_{tenfold_iteration}"
     tb_writer = SummaryWriter(tb_folder)
 
     # Optimizing
     optimizer = optim.Adam(model.parameters(), max_lr)
 
-    best_vloss = 1_000_000.
+    best_vloss = 1_000_000.0
     best_vrec = 0
     best_vprec = 0
     best_vacc = 0
     best_prec_rec = 0
     best_epoch = 0
     e_batch_iter = 0
+    current_path = os.getcwd()
     try:
-        os.mkdir('/home/model_checkpoints')
+        os.mkdir(f"{current_path}/model_checkpoints")
     except OSError:
         pass
     try:
-        os.mkdir('/home/model_logs/')
+        os.mkdir(f"{current_path}/model_logs/")
     except OSError:
         pass
     try:
-        os.mkdir(f'/home/model_logs/{data_name}')
+        os.mkdir(f"{current_path}/model_logs/{data_name}")
     except OSError:
         pass
     try:
         os.mkdir(log_folder)
     except OSError:
         pass
-    
+
     for epoch_number in range(num_epochs):
         # Train loop
         model.train()
-        avg_loss, last_batch_iter = train_one_epoch(model_utils,
-                                                    tb_writer,
-                                                    tb_checkpoint,
-                                                    train_dl,
-                                                    optimizer,
-                                                    model,
-                                                    max_lr,
-                                                    min_lr,
-                                                    warmup_iters,
-                                                    e_batch_iter,
-                                                    lr_decay_iters,)
+        avg_loss, last_batch_iter = train_one_epoch(
+            model_utils,
+            tb_writer,
+            tb_checkpoint,
+            train_dl,
+            optimizer,
+            model,
+            max_lr,
+            min_lr,
+            warmup_iters,
+            e_batch_iter,
+            lr_decay_iters,
+        )
         e_batch_iter += last_batch_iter
         # Validation loop
         model.eval()
-        avg_vloss, avg_vrec, avg_vprec, avg_vacc, cat_probabilities, cat_labels = validation_one_epoch(
-            model_utils, validation_loader, model, pretraining)
+        (
+            avg_vloss,
+            avg_vrec,
+            avg_vprec,
+            avg_vacc,
+            cat_probabilities,
+            cat_labels,
+        ) = validation_one_epoch(model_utils, validation_loader, model, pretraining)
         lr = model_utils.get_lr(
-            e_batch_iter, lr_decay_iters, max_lr, min_lr, warmup_iters)
-        print(f'Epoch {epoch_number}: LR: {lr:.5f}, LOSS train {avg_loss:.4f} valid {avg_vloss:.4}, prec: {avg_vprec:.2%}, rec: {avg_vrec:.2%}')
+            e_batch_iter, lr_decay_iters, max_lr, min_lr, warmup_iters
+        )
+        print(
+            f"Epoch {epoch_number}: LR: {lr:.5f}, LOSS train {avg_loss:.4f} valid {avg_vloss:.4}, prec: {avg_vprec:.2%}, rec: {avg_vrec:.2%}"
+        )
 
-        tb_writer.add_scalar('Validation Loss', avg_vloss, e_batch_iter+1)
-        tb_writer.add_scalar('Validation Recall', avg_vrec, e_batch_iter+1)
-        tb_writer.add_scalar('Validation Precision', avg_vprec, e_batch_iter+1)
-        tb_writer.add_scalar('Validation Accuracy', avg_vacc, e_batch_iter+1)
+        tb_writer.add_scalar("Validation Loss", avg_vloss, e_batch_iter + 1)
+        tb_writer.add_scalar("Validation Recall", avg_vrec, e_batch_iter + 1)
+        tb_writer.add_scalar("Validation Precision", avg_vprec, e_batch_iter + 1)
+        tb_writer.add_scalar("Validation Accuracy", avg_vacc, e_batch_iter + 1)
         tb_writer.flush()
 
         # Track best performance, and save the model's state
-        prec_rec = 0.5*avg_vprec + 0.5*avg_vrec
+        prec_rec = 0.5 * avg_vprec + 0.5 * avg_vrec
         if pretraining:
             logging_epoch = 50
         else:
             logging_epoch = 0
-        
-        pretraining_logging = (prec_rec >= best_prec_rec) and e_batch_iter > logging_epoch and avg_vloss < 1
+
+        pretraining_logging = (
+            (prec_rec >= best_prec_rec)
+            and e_batch_iter > logging_epoch
+            and avg_vloss < 1
+        )
         scratch_logging = avg_vloss < best_vloss
-        if (pretraining and pretraining_logging) or ((not pretraining) and scratch_logging):
+        if (pretraining and pretraining_logging) or (
+            (not pretraining) and scratch_logging
+        ):
             if pretraining:
-                print(
-                    f'Found new best performance of {avg_vprec:.3%}, {avg_vrec:.3%}')
+                print(f"Found new best performance of {avg_vprec:.3%}, {avg_vrec:.3%}")
             else:
-                print(
-                    f'Found new best performance at validation loss {avg_vloss}')
-            
-            log_dict = {'prob': cat_probabilities.tolist(),
-                        'label': cat_labels.tolist()}
-            log_files = glob.glob(f'{log_folder}/*')
+                print(f"Found new best performance at validation loss {avg_vloss}")
+
+            log_dict = {
+                "prob": cat_probabilities.tolist(),
+                "label": cat_labels.tolist(),
+            }
+            log_files = glob.glob(f"{log_folder}/*")
             for f in log_files:
                 os.remove(f)
-            logging_file = f'{log_folder}/step_{str(e_batch_iter+1)}.json'
-            with open(logging_file, 'w+', encoding='utf-8') as file:
+            logging_file = f"{log_folder}/step_{str(e_batch_iter+1)}.json"
+            with open(logging_file, "w+", encoding="utf-8") as file:
                 to_write = json.dumps(log_dict, indent=3)
-                file.write(to_write + '\n')
+                file.write(to_write + "\n")
             best_epoch = epoch_number
             best_vloss = avg_vloss
             best_vrec = avg_vrec
@@ -322,19 +384,34 @@ def model_pipe(data_name, pretraining, pretrain_type, datapipe, dim_model=1024, 
                 os.remove(model_checkpoint_path)
             torch.save(model.state_dict(), model_checkpoint_path)
 
-    model_str = 'Finished training {} epochs for {} dimensions & {} heads on {} {}'.format(
-        str(num_epochs), str(target_dim), str(num_head), data_name, pretrain_type)
-    epoch_str = 'best epoch: ' + str(best_epoch)
-    vloss_str = 'best vloss: ' + str(round(best_vloss, 4))
-    recall_str = 'best rec: ' + str(round(best_vrec, 7))
-    precision_str = 'best prec: ' + str(round(best_vprec, 7))
-    acc_str = 'best acc: ' + str(round(best_vacc, 7))
+    model_str = (
+        "Finished training {} epochs for {} dimensions & {} heads on {} {}".format(
+            str(num_epochs), str(target_dim), str(num_head), data_name, pretrain_type
+        )
+    )
+    epoch_str = "best epoch: " + str(best_epoch)
+    vloss_str = "best vloss: " + str(round(best_vloss, 4))
+    recall_str = "best rec: " + str(round(best_vrec, 7))
+    precision_str = "best prec: " + str(round(best_vprec, 7))
+    acc_str = "best acc: " + str(round(best_vacc, 7))
 
     logging = True
     if logging:
         f = open("log.txt", "a")
-        f.write(model_str + '\n' + epoch_str + '\n' + vloss_str + '\n' +
-                recall_str + '\n' + precision_str + '\n' + acc_str + '\n\n')
+        f.write(
+            model_str
+            + "\n"
+            + epoch_str
+            + "\n"
+            + vloss_str
+            + "\n"
+            + recall_str
+            + "\n"
+            + precision_str
+            + "\n"
+            + acc_str
+            + "\n\n"
+        )
         f.close()
 
 
@@ -355,15 +432,16 @@ def driver():
 
     # Data loading
     current_path = os.getcwd()
-    data_name_path = f'{current_path}/{data_path}/{data_name}'
-    tensors_path = f'{current_path}/{data_path}/codegen_states/{data_name}_{pretrain_type}/'
+    data_name_path = f"{current_path}/{data_path}/{data_name}"
+    tensors_path = (
+        f"{current_path}/{data_path}/codegen_states/{data_name}_{pretrain_type}/"
+    )
 
     if pretraining:
-        print(
-            f'Using preloaded codegen hidden states for {data_name}_{pretrain_type}')
+        print(f"Using preloaded codegen hidden states for {data_name}_{pretrain_type}")
         datapipe = PreloadedDataset(tensors_path)
     else:
-        print(f'Naive training for {data_name}')
+        print(f"Naive training for {data_name}")
         datapipe = NaiveDataset(data_name_path)
 
     # Hyperparameters pretraining
@@ -395,24 +473,24 @@ def driver():
     elif target_dim == 256:
         num_head = 4
 
-    if pretrain_type == '350M':
+    if pretrain_type == "350M":
         dim_model = 1024
-    elif pretrain_type == '2B':
+    elif pretrain_type == "2B":
         dim_model = 2560
         max_lr = max_lr / 10
         min_lr = min_lr / 10
-    elif pretrain_type == '6B':
+    elif pretrain_type == "6B":
         dim_model = 4096
         max_lr = max_lr / 15
         min_lr = min_lr / 15
-    elif pretrain_type == '16B':
+    elif pretrain_type == "16B":
         dim_model = 6144
         max_lr = max_lr / 25
         min_lr = min_lr / 25
 
-    if data_name == 'bugsinpy' or 'defects4j' in data_name:
+    if data_name == "bugsinpy" or "defects4j" in data_name:
         batch_size = 8
-    if data_name == 'devign':
+    if data_name == "devign":
         batch_size = 16
 
     useloop = False
@@ -420,70 +498,75 @@ def driver():
     load_checkpoint = False
     first_tb = False
 
-    print('Starting training')
+    print("Starting training")
     if not useloop:
-        model_pipe(data_name=data_name,
-                   pretraining=pretraining,
-                   pretrain_type=pretrain_type,
-                   datapipe=datapipe,
-                   dim_model=dim_model,
-                   num_head=num_head,
-                   num_layer=num_layer,
-                   target_dim=target_dim,
-                   batch_size=batch_size,
-                   num_epochs=num_epochs,
-                   max_lr=max_lr,
-                   min_lr=min_lr,
-                   warmup_iters=warmup_iters,
-                   tb_checkpoint=tb_checkpoint,
-                   load_checkpoint=load_checkpoint,
-                   first_tb=first_tb,
-                   lr_decay_iters=lr_decay_iters)
+        model_pipe(
+            data_name=data_name,
+            pretraining=pretraining,
+            pretrain_type=pretrain_type,
+            datapipe=datapipe,
+            dim_model=dim_model,
+            num_head=num_head,
+            num_layer=num_layer,
+            target_dim=target_dim,
+            batch_size=batch_size,
+            num_epochs=num_epochs,
+            max_lr=max_lr,
+            min_lr=min_lr,
+            warmup_iters=warmup_iters,
+            tb_checkpoint=tb_checkpoint,
+            load_checkpoint=load_checkpoint,
+            first_tb=first_tb,
+            lr_decay_iters=lr_decay_iters,
+        )
 
     else:
         if ten_fold:
-            for i in range(0,2):
-                model_pipe(data_name=data_name,
-                        pretraining=pretraining,
-                        pretrain_type=pretrain_type,
-                        datapipe=datapipe,
-                        dim_model=dim_model,
-                        num_head=num_head,
-                        num_layer=num_layer,
-                        target_dim=target_dim,
-                        batch_size=batch_size,
-                        num_epochs=num_epochs,
-                        max_lr=max_lr,
-                        min_lr=min_lr,
-                        tb_checkpoint=tb_checkpoint,
-                        load_checkpoint=load_checkpoint,
-                        first_tb=first_tb,
-                        lr_decay_iters=lr_decay_iters,
-                        tenfold_iteration=i)           
+            for i in range(0, 2):
+                model_pipe(
+                    data_name=data_name,
+                    pretraining=pretraining,
+                    pretrain_type=pretrain_type,
+                    datapipe=datapipe,
+                    dim_model=dim_model,
+                    num_head=num_head,
+                    num_layer=num_layer,
+                    target_dim=target_dim,
+                    batch_size=batch_size,
+                    num_epochs=num_epochs,
+                    max_lr=max_lr,
+                    min_lr=min_lr,
+                    tb_checkpoint=tb_checkpoint,
+                    load_checkpoint=load_checkpoint,
+                    first_tb=first_tb,
+                    lr_decay_iters=lr_decay_iters,
+                    tenfold_iteration=i,
+                )
 
         else:
             target_dims = [1024, 512, 256]
             num_heads = [16, 8, 4]
             for i, target_dim in enumerate(target_dims):
                 num_head = num_heads[i]
-                model_pipe(data_name=data_name,
-                        pretraining=pretraining,
-                        pretrain_type=pretrain_type,
-                        datapipe=datapipe,
-                        dim_model=dim_model,
-                        num_head=num_head,
-                        num_layer=num_layer,
-                        target_dim=target_dim,
-                        batch_size=batch_size,
-                        num_epochs=num_epochs,
-                        max_lr=max_lr,
-                        min_lr=min_lr,
-                        tb_checkpoint=tb_checkpoint,
-                        load_checkpoint=load_checkpoint,
-                        first_tb=first_tb,
-                        lr_decay_iters=lr_decay_iters)
+                model_pipe(
+                    data_name=data_name,
+                    pretraining=pretraining,
+                    pretrain_type=pretrain_type,
+                    datapipe=datapipe,
+                    dim_model=dim_model,
+                    num_head=num_head,
+                    num_layer=num_layer,
+                    target_dim=target_dim,
+                    batch_size=batch_size,
+                    num_epochs=num_epochs,
+                    max_lr=max_lr,
+                    min_lr=min_lr,
+                    tb_checkpoint=tb_checkpoint,
+                    load_checkpoint=load_checkpoint,
+                    first_tb=first_tb,
+                    lr_decay_iters=lr_decay_iters,
+                )
 
 
 if __name__ == "__main__":
     driver()
-

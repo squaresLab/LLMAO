@@ -73,19 +73,13 @@ Download Dataset
 
 3. Load Codegen final hidden states:
     change `biggest_model=1` to use Codegen-16B: requires significant amount of GPU vram and storage.
-
     `bash codegen_loading.sh`
 
 4. Train 
-
     `bash fault_localizer.sh`
 
-5. Reload results
-
-    Change log_path=/home/model_logs_tenfold in results_topscores.sh to log_path=/home/model_logs
-
+5. Rerun results
     `python3 top_scores.py`
-
     `python3 plotter.py`
 
 
