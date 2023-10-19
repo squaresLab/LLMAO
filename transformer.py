@@ -2,8 +2,15 @@ import torch
 import torch.utils.checkpoint
 from torch import nn
 from transformers import AutoConfig, CodeGenTokenizerFast
-from llmao.codegen import CodeGenPass
-from llmao.modeling_codegen import CodeGenBlock
+try:
+    from codegen import CodeGenPass
+except:
+    from llmao.codegen import CodeGenPass
+    
+try:
+    from modeling_codegen import CodeGenBlock
+except:
+    from llmao.modeling_codegen import CodeGenBlock
 import os
 import numpy as np
 import math
@@ -14,7 +21,7 @@ import json
 MAX_LEN = 256
 
 
-class Utilities():
+class Utilities:
     def recall_prec_function(self, predictions, label, mask):
         """Computes masked prediction accuracies
 
@@ -26,10 +33,9 @@ class Utilities():
         Returns:
             1D float: accuracy and precision per batch
         """
-        
+
         num_bugs = torch.sum(label * mask) + 1e-6
-        sigmoid_prediction = torch.round(
-            torch.sigmoid(predictions))
+        sigmoid_prediction = torch.round(torch.sigmoid(predictions))
         corrects = torch.eq(label, sigmoid_prediction)
         true_positive = torch.logical_and(mask, corrects)
         true_positive = true_positive * label
@@ -38,11 +44,18 @@ class Utilities():
         final_acc = torch.mean(torch.sum(accuracies) / torch.sum(mask))
 
         recall = torch.sum(true_positive) / num_bugs
-        precision = torch.sum(true_positive) / \
-            torch.sum(sigmoid_prediction * mask + 1e-6)
-        return recall.cpu().detach().numpy(), precision.cpu().detach().numpy(), final_acc.cpu().detach().numpy()  # 1D float
+        precision = torch.sum(true_positive) / torch.sum(
+            sigmoid_prediction * mask + 1e-6
+        )
+        return (
+            recall.cpu().detach().numpy(),
+            precision.cpu().detach().numpy(),
+            final_acc.cpu().detach().numpy(),
+        )  # 1D float
 
-    def get_lr(self, iter, lr_decay_iters=10000, max_lr=1e-4, min_lr=1e-6, warmup_iters=500):
+    def get_lr(
+        self, iter, lr_decay_iters=10000, max_lr=1e-4, min_lr=1e-6, warmup_iters=500
+    ):
         # 1) linear warmup for warmup_iters steps
         if iter < warmup_iters:
             return max_lr * iter / warmup_iters
@@ -57,23 +70,24 @@ class Utilities():
         return min_lr + coeff * (max_lr - min_lr)
 
 
-class TokenizeMask():
+class TokenizeMask:
     def __init__(self, pretrain_type):
         self.max_token_len = 2048
         self.codegen_trainer = CodeGenPass()
-        if pretrain_type == '350M':
+        if pretrain_type == "350M":
             self.dim_model = 1024
-        elif pretrain_type == '2B':
+        elif pretrain_type == "2B":
             self.dim_model = 2560
-        elif pretrain_type == '6B':
+        elif pretrain_type == "6B":
             self.dim_model = 4096
-        elif pretrain_type == '16B':
+        elif pretrain_type == "16B":
             self.dim_model = 6144
         self.model, self.tokenizer = self.codegen_trainer.setup_model(
-            type=pretrain_type)
+            type=pretrain_type
+        )
 
     def drop_double_newlines(self, code_line):
-        code_line_split = code_line.split('\n')
+        code_line_split = code_line.split("\n")
         dropped_code = []
         is_even_newline = False
         for _, line in enumerate(code_line_split):
@@ -82,7 +96,7 @@ class TokenizeMask():
                 continue
             is_even_newline = False
             dropped_code.append(line)
-        dropped_code = '\n'.join(dropped_code)
+        dropped_code = "\n".join(dropped_code)
         return dropped_code
 
     def get_hidden_state(self, input_ids):
@@ -98,8 +112,9 @@ class TokenizeMask():
                 nl_index = nl_indices[1]
             else:
                 nl_index = nl_indices[0]
-            nl_final_attention_states = hidden_state[torch.arange(
-                hidden_state.size(0)), nl_index]
+            nl_final_attention_states = hidden_state[
+                torch.arange(hidden_state.size(0)), nl_index
+            ]
             hidden_states.append(nl_final_attention_states)
         final_attention_states = torch.cat(hidden_states, axis=0)
         return final_attention_states
@@ -108,31 +123,33 @@ class TokenizeMask():
         hidden_states = self.get_hidden_state(input_ids=input)
         sample_shape = list(hidden_states.size())[0]
         # Padding
-        sample_padding = torch.zeros(
-            self.max_token_len - sample_shape, self.dim_model)
-        final_hidden_states = torch.cat(
-            [hidden_states, sample_padding], axis=0)
+        sample_padding = torch.zeros(self.max_token_len - sample_shape, self.dim_model)
+        final_hidden_states = torch.cat([hidden_states, sample_padding], axis=0)
         # Masking
         attention_mask = torch.cat(
-            [torch.ones(sample_shape), torch.zeros(self.max_token_len - sample_shape)], axis=0
+            [torch.ones(sample_shape), torch.zeros(self.max_token_len - sample_shape)],
+            axis=0,
         )
-        return final_hidden_states, attention_mask, sample_shape,
+        return (
+            final_hidden_states,
+            attention_mask,
+            sample_shape,
+        )
 
     def padding_naive(self, input):
         sample_shape = list(input.size())[0]
         sample_padding = torch.zeros(self.max_token_len - sample_shape)
         padded_input = torch.cat([input, sample_padding], axis=0)
-        attention_mask = ((padded_input == 198) |
-                          (padded_input == 628)).to(int)
+        attention_mask = ((padded_input == 198) | (padded_input == 628)).to(int)
         return padded_input, attention_mask
 
     def generate_token_mask(self, input):
         input = self.drop_double_newlines(input)
         input_ids = self.tokenizer(
-            input, return_tensors="pt", truncation=True, max_length=self.max_token_len)['input_ids']
+            input, return_tensors="pt", truncation=True, max_length=self.max_token_len
+        )["input_ids"]
         decoded_input = self.tokenizer.decode(input_ids[0])
-        padded_input, attention_mask, input_size = self.padding_pretrain(
-            input_ids)
+        padded_input, attention_mask, input_size = self.padding_pretrain(input_ids)
         return padded_input, attention_mask, input_size, decoded_input
 
 
@@ -142,20 +159,19 @@ class PreloadedDataset(torch.utils.data.Dataset):
         self.path_batch_iter = -1
         for root, dirs, filenames in os.walk(root_path):
             for fileName in filenames:
-                self.tensor_paths.append(int(fileName.replace('.pt', '')))
+                self.tensor_paths.append(int(fileName.replace(".pt", "")))
             break
         self.tensor_paths.sort()
         self.max_file = int(self.tensor_paths[-1])
         for i, file in enumerate(self.tensor_paths):
-            self.tensor_paths[i] = root_path + str(file) + '.pt'
-        print(
-            f'Loading {self.max_file} samples of pretrained hidden states')
+            self.tensor_paths[i] = root_path + str(file) + ".pt"
+        print(f"Loading {self.max_file} samples of pretrained hidden states")
 
     def __getitem__(self, idx):
         sample = torch.load(self.tensor_paths[idx])
-        input = sample['input'].to("cuda:0")
-        label = sample['label'].to("cuda:0")
-        mask = sample['mask'].to("cuda:0")
+        input = sample["input"].to("cuda:0")
+        label = sample["label"].to("cuda:0")
+        mask = sample["mask"].to("cuda:0")
         return input, label, mask
 
     def __len__(self):
@@ -165,10 +181,12 @@ class PreloadedDataset(torch.utils.data.Dataset):
 class NaiveDataset(torch.utils.data.Dataset):
     def __init__(self, root_path):
         self.code_bugline = pd.read_csv(
-            root_path+'/code_bugline.csv', names=["input", "label"])
+            root_path + "/code_bugline.csv", names=["input", "label"]
+        )
         self.max_token_len = 2048
         self.tokenizer = CodeGenTokenizerFast.from_pretrained(
-            "Salesforce/codegen-350M-mono", fp16=True)
+            "Salesforce/codegen-350M-mono", fp16=True
+        )
 
     def padding(self, input, label):
         sample_shape = list(input.shape)[0]
@@ -193,19 +211,28 @@ class NaiveDataset(torch.utils.data.Dataset):
         # Mask
         attention_mask_nopad = ((input == 198) | (input == 628)).to(int)
         attention_mask = torch.cat(
-            [attention_mask_nopad, torch.zeros(self.max_token_len - list(attention_mask_nopad.shape)[0])], axis=0)
+            [
+                attention_mask_nopad,
+                torch.zeros(self.max_token_len - list(attention_mask_nopad.shape)[0]),
+            ],
+            axis=0,
+        )
 
         return padded_input.detach(), NL_tokens.detach(), attention_mask.detach()
 
     def __getitem__(self, idx):
-        input = self.code_bugline['input'][idx]
-        label = json.loads(self.code_bugline['label'][idx])
+        input = self.code_bugline["input"][idx]
+        label = json.loads(self.code_bugline["label"][idx])
         input_ids = self.tokenizer(
-            input, return_tensors="pt", truncation=True, max_length=self.max_token_len).input_ids[0]
+            input, return_tensors="pt", truncation=True, max_length=self.max_token_len
+        ).input_ids[0]
         input_ids.detach()
-        padded_input, NL_tokens, attention_mask = self.padding(
-            input_ids, label)
-        return padded_input.to("cuda:0"), NL_tokens.to("cuda:0"), attention_mask.to("cuda:0")
+        padded_input, NL_tokens, attention_mask = self.padding(input_ids, label)
+        return (
+            padded_input.to("cuda:0"),
+            NL_tokens.to("cuda:0"),
+            attention_mask.to("cuda:0"),
+        )
 
     def __len__(self):
         return len(self.code_bugline)
@@ -226,7 +253,7 @@ class Encoder(nn.Module):
         )
 
     def forward(self, x, padding_mask):
-        """ Transformer encoding layer
+        """Transformer encoding layer
 
         Args:
             x (torch.tensor): shape [batch_size=batch_size, seq_len=256, num_dimensions=1024]
@@ -282,7 +309,8 @@ class VoltronTransformerPretrained(nn.Module):
         """
         # print('attention_mask shape: ', attention_mask.shape)
         attention_mask = torch.where(
-            attention_mask[:, None, None, :] == 1, 0, -torch.inf)
+            attention_mask[:, None, None, :] == 1, 0, -torch.inf
+        )
         projected = self.dim_projection(embedding)
         enc_output = self.encoder(projected, padding_mask=attention_mask)
         """
@@ -304,7 +332,7 @@ class VoltronTransformerPretrained(nn.Module):
 
 
 def get_angles(pos, i, d_model):
-    angle_rates = 1 / np.power(10000, (2 * (i//2)) / np.float32(d_model))
+    angle_rates = 1 / np.power(10000, (2 * (i // 2)) / np.float32(d_model))
     return pos * angle_rates
 
 
@@ -312,19 +340,18 @@ class PositionalEncoding(torch.nn.Module):  # custom code
     def __init__(self, d_model, dropout=0.1, max_len=2048):
         super(PositionalEncoding, self).__init__()
         self.dropout = torch.nn.Dropout(p=dropout)
-        pe = torch.zeros((max_len, 1, d_model),
-                         dtype=torch.float32)
+        pe = torch.zeros((max_len, 1, d_model), dtype=torch.float32)
         factor = -math.log(10000.0) / d_model  # outs loop
         for pos in range(0, max_len):  # position of word in seq
             for i in range(0, d_model, 2):  # pos of embed of word
                 div_term = math.exp(i * factor)
                 pe[pos, 0, i] = math.sin(pos * div_term)
-                pe[pos, 0, i+1] = math.cos(pos * div_term)
-        self.register_buffer('pe', pe)  # allows state-save
+                pe[pos, 0, i + 1] = math.cos(pos * div_term)
+        self.register_buffer("pe", pe)  # allows state-save
 
     def forward(self, x):
         # x has shape [seq_len, bat_size, embed_dim]
-        x = x + self.pe[:x.size(0), :]
+        x = x + self.pe[: x.size(0), :]
         return self.dropout(x)
 
 
@@ -380,7 +407,8 @@ class VoltronTransformer(nn.Module):
 
         # Transformer layers
         attention_mask = torch.where(
-            attention_mask[:, None, None, :] == 1, 0, -torch.inf)
+            attention_mask[:, None, None, :] == 1, 0, -torch.inf
+        )
         enc_output = self.encoder(embeddings, padding_mask=attention_mask)
         # projected_output = self.dim_projection(enc_output)
         """
