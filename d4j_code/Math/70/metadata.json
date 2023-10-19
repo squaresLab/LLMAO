@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 70, "bug_line_number": [72], "classpath": "org.apache.commons.math.analysis.solvers.BisectionSolver", "num_lines": 20}

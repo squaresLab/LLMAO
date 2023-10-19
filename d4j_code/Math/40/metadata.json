@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 40, "bug_line_number": [235, 238], "classpath": "org.apache.commons.math.analysis.solvers.BracketingNthOrderBrentSolver", "num_lines": 20}

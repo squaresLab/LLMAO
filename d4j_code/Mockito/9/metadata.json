@@ -1,0 +1,1 @@
+{"project": "Mockito", "bug_id": 9, "bug_line_number": [36], "classpath": "org.mockito.internal.stubbing.answers.CallsRealMethods", "num_lines": 20}

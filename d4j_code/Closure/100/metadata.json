@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 100, "bug_line_number": [146], "classpath": "com.google.javascript.jscomp.CheckGlobalThis", "num_lines": 20}

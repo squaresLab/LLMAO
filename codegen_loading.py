@@ -120,8 +120,9 @@ def save_data():
             dim_model = 6144
         print(f'Loading {pretrain_type} codegen states on {data_name}')
 
-        # Data
-        root = f'{data_path}/{data_name}'
+        # Data loading
+        current_path = os.getcwd()
+        root = f'{current_path}/{data_path}/{data_name}'
         data = CSVDataLoader(
             root=root,
             dim_model=dim_model,
@@ -131,7 +132,7 @@ def save_data():
         data_loaded = DataLoader(
             dataset=datapipe, batch_size=1, drop_last=True
         )
-        save_path = f'{data_path}/codegen_states'
+        save_path = f'{current_path}/{data_path}/codegen_states'
         try:
             os.mkdir(save_path)
         except OSError:

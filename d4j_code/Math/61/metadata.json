@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 61, "bug_line_number": [94], "classpath": "org.apache.commons.math.distribution.PoissonDistributionImpl", "num_lines": 20}

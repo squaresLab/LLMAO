@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 86, "bug_line_number": [114, 115, 112, 114, 115, 118], "classpath": "org.apache.commons.math.linear.CholeskyDecompositionImpl", "num_lines": 20}

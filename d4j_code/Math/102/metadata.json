@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 102, "bug_line_number": [74, 77, 78], "classpath": "org.apache.commons.math.stat.inference.ChiSquareTestImpl", "num_lines": 20}

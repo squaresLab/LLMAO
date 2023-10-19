@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 114, "bug_line_number": [563, 585], "classpath": "com.google.javascript.jscomp.NameAnalyzer", "num_lines": 20}

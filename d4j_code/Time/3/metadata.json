@@ -1,0 +1,1 @@
+{"project": "Time", "bug_id": 3, "bug_line_number": [639, 660, 681, 702, 723, 764, 785, 816, 847, 880], "classpath": "org.joda.time.MutableDateTime", "num_lines": 20}

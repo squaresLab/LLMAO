@@ -1,0 +1,1 @@
+{"project": "Time", "bug_id": 6, "bug_line_number": [195, 199, 200, 978, 979, 1000, 1001], "classpath": "org.joda.time.chrono.GJChronology", "num_lines": 20}

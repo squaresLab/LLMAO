@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 84, "bug_line_number": [64, 90, 94, 90, 94], "classpath": "org.apache.commons.math.optimization.direct.MultiDirectional", "num_lines": 20}

@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 93, "bug_line_number": [345, 346, 377, 397, 398], "classpath": "org.apache.commons.math.util.MathUtils", "num_lines": 20}

@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 25, "bug_line_number": [1038, 1059, 1060, 1059, 1060, 1037, 1038, 1039, 1040, 1041, 1042, 1043, 1044, 1046, 1047, 1054], "classpath": "com.google.javascript.jscomp.TypeInference", "num_lines": 20}

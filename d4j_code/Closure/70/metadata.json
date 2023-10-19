@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 70, "bug_line_number": [1744], "classpath": "com.google.javascript.jscomp.TypedScopeCreator", "num_lines": 20}

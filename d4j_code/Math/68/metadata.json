@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 68, "bug_line_number": [303, 419, 163, 166, 247, 303, 419, 252, 303, 419, 303, 419, 415, 419], "classpath": "org.apache.commons.math.optimization.general.LevenbergMarquardtOptimizer", "num_lines": 20}

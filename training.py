@@ -149,7 +149,7 @@ def validation_one_epoch(model_utils, validation_loader, model, pretraining):
     return avg_vloss, avg_vrec, avg_vprec, avg_vacc, cat_probabilities, cat_labels
 
 
-def model_pipe(data_name, pretraining, pretrain_type, datapipe, data_path, dim_model=1024, num_head=16, num_layer=2, target_dim=256, batch_size=8, num_epochs=1, max_lr=1e-4, min_lr=1e-6, warmup_iters=500, tb_checkpoint=10, load_checkpoint=False, first_tb=True, lr_decay_iters=10000, tenfold_iteration=9):
+def model_pipe(data_name, pretraining, pretrain_type, datapipe, dim_model=1024, num_head=16, num_layer=2, target_dim=256, batch_size=8, num_epochs=1, max_lr=1e-4, min_lr=1e-6, warmup_iters=500, tb_checkpoint=10, load_checkpoint=False, first_tb=True, lr_decay_iters=10000, tenfold_iteration=9):
     """ Entire model pipeline
 
     Args:
@@ -338,7 +338,7 @@ def model_pipe(data_name, pretraining, pretrain_type, datapipe, data_path, dim_m
         f.close()
 
 
-def main():
+def driver():
     # Uses a standard argument parsing library.
     ap = argparse.ArgumentParser()
     ap.add_argument("data_path", help="Path to data root")
@@ -354,8 +354,9 @@ def main():
     pretraining = int(args.pretraining)
 
     # Data loading
-    data_name_path = f'{data_path}/{data_name}'
-    tensors_path = f'{data_path}/codegen_states/{data_name}_{pretrain_type}/'
+    current_path = os.getcwd()
+    data_name_path = f'{current_path}/{data_path}/{data_name}'
+    tensors_path = f'{current_path}/{data_path}/codegen_states/{data_name}_{pretrain_type}/'
 
     if pretraining:
         print(
@@ -416,7 +417,7 @@ def main():
 
     useloop = False
     ten_fold = False
-    load_checkpoint = True
+    load_checkpoint = False
     first_tb = False
 
     print('Starting training')
@@ -425,7 +426,6 @@ def main():
                    pretraining=pretraining,
                    pretrain_type=pretrain_type,
                    datapipe=datapipe,
-                   data_path=data_path,
                    dim_model=dim_model,
                    num_head=num_head,
                    num_layer=num_layer,
@@ -447,7 +447,6 @@ def main():
                         pretraining=pretraining,
                         pretrain_type=pretrain_type,
                         datapipe=datapipe,
-                        data_path=data_path,
                         dim_model=dim_model,
                         num_head=num_head,
                         num_layer=num_layer,
@@ -471,7 +470,6 @@ def main():
                         pretraining=pretraining,
                         pretrain_type=pretrain_type,
                         datapipe=datapipe,
-                        data_path=data_path,
                         dim_model=dim_model,
                         num_head=num_head,
                         num_layer=num_layer,
@@ -487,5 +485,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    driver()
 

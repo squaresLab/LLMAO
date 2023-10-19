@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 67, "bug_line_number": [316, 320], "classpath": "com.google.javascript.jscomp.AnalyzePrototypeProperties", "num_lines": 20}

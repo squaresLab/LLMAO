@@ -36,8 +36,9 @@ def load_model(pretrain_type):
         num_head=num_head,
         target_dim=target_dim,
     )
+    current_path = os.getcwd()
     model.load_state_dict(
-        torch.load(f"llmao/model_checkpoints/defects4j_{pretrain_type}"), strict=False
+        torch.load(f"{current_path}/model_checkpoints/defects4j_{pretrain_type}"), strict=False
     )
     model.eval()
 
@@ -134,7 +135,7 @@ def llmao_gen(pretrain_type, output_dir):
             if "sus.json" in file_path:
                 with open(file_path.replace("sus", "metadata")) as json_file:
                     meta_json = json.load(json_file)
-                    code_path = f"d4j_code/{d4j_proj}/{bug_num}/b{bug_num}.java"
+                    code_path = f"{current_path}/d4j_code/{d4j_proj}/{bug_num}/b{bug_num}.java"
                     with open(code_path, "r") as jcode:
                         code = jcode.readlines()
                 with open(file_path) as json_file:

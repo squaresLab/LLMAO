@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 72, "bug_line_number": [215, 145], "classpath": "com.google.javascript.jscomp.RenameLabels", "num_lines": 20}

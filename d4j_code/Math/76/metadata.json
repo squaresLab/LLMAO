@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 76, "bug_line_number": [161, 166, 171, 178, 247, 252, 256, 263, 166, 168, 169, 170, 171, 252, 253, 254, 255, 256, 252, 253, 254, 255, 256, 265], "classpath": "org.apache.commons.math.linear.SingularValueDecompositionImpl", "num_lines": 20}

@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 44, "bug_line_number": [280, 333, 334, 342, 343], "classpath": "org.apache.commons.math.ode.AbstractIntegrator", "num_lines": 20}

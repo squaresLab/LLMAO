@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 84, "bug_line_number": [340, 341, 793, 798], "classpath": "com.google.javascript.jscomp.parsing.IRFactory", "num_lines": 20}

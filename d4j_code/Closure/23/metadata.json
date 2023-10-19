@@ -1,0 +1,1 @@
+{"project": "Closure", "bug_id": 23, "bug_line_number": [1451, 1452], "classpath": "com.google.javascript.jscomp.PeepholeFoldConstants", "num_lines": 20}

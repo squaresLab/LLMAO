@@ -1,0 +1,1 @@
+{"project": "Lang", "bug_id": 13, "bug_line_number": [239, 265, 268], "classpath": "org.apache.commons.lang3.SerializationUtils", "num_lines": 20}

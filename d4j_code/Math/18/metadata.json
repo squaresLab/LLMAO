@@ -1,0 +1,1 @@
+{"project": "Math", "bug_id": 18, "bug_line_number": [932, 958, 992, 995, 992, 995], "classpath": "org.apache.commons.math3.optimization.direct.CMAESOptimizer", "num_lines": 20}

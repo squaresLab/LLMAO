@@ -1,4 +1,4 @@
-data_path=/home/data
+data_path=data
 data_name=defects4j-1.2.0 # bugsinpy defects4j devign github/decoded
 pretrain_type=16B # 350M, 2B, 6B, 16B
 pretraining=1
