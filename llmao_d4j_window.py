@@ -7,7 +7,6 @@ from transformer import VoltronTransformerPretrained, TokenizeMask
 
 
 def divide_chunks(l, n):
-    # looping till length l
     for i in range(0, len(l), n):
         yield l[i : i + n]
 
@@ -38,7 +37,8 @@ def load_model(pretrain_type):
     )
     current_path = os.getcwd()
     model.load_state_dict(
-        torch.load(f"{current_path}/model_checkpoints/defects4j_{pretrain_type}"), strict=False
+        torch.load(f"{current_path}/model_checkpoints/defects4j_{pretrain_type}"),
+        strict=False,
     )
     model.eval()
 
@@ -70,15 +70,12 @@ def llmao_prediction(model, tokenize_mask, filtered_code):
             {"code": filtered_code[i - 1], "score": round(probabilities[i], 5)}
         )
 
-    ## sort and filter top 10 sus_scores
     result_list = sorted(result_list, key=lambda d: d["score"], reverse=True)
-    #########
     return result_list
 
 
 def use_window_method(model, tokenize_mask, code_lines):
     result_dict = {}
-    # Process code lines and divide into chunks of 124 lines
     filtered_code_lines = []
     for code_line in code_lines:
         if (
@@ -90,7 +87,6 @@ def use_window_method(model, tokenize_mask, code_lines):
         ):
             filtered_code_lines.append(code_line)
     code_broken = list(divide_chunks(filtered_code_lines, 124))
-    # Run LLMAO on each chunk
     entire_file_predictions = []
     for code_chunk in code_broken:
         llmao_list = llmao_prediction(model, tokenize_mask, code_chunk)
@@ -99,7 +95,6 @@ def use_window_method(model, tokenize_mask, code_lines):
     result_list = chain.from_iterable(entire_file_predictions)
     result_list = sorted(result_list, key=lambda d: d["score"], reverse=True)
     result_list = result_list[:124]
-    # LLMAO on resulting combined list
     result_list = llmao_prediction(
         model, tokenize_mask, [res["code"] for res in result_list]
     )
@@ -110,7 +105,6 @@ def use_window_method(model, tokenize_mask, code_lines):
             if code_lines[i] == llmao_code:
                 result_dict[i + 1] = res["score"]
                 break
-        # result_dict[res["line"]] = res["score"]
     return result_dict
 
 
@@ -135,7 +129,9 @@ def llmao_gen(pretrain_type, output_dir):
             if "sus.json" in file_path:
                 with open(file_path.replace("sus", "metadata")) as json_file:
                     meta_json = json.load(json_file)
-                    code_path = f"{current_path}/d4j_code/{d4j_proj}/{bug_num}/b{bug_num}.java"
+                    code_path = (
+                        f"{current_path}/d4j_code/{d4j_proj}/{bug_num}/b{bug_num}.java"
+                    )
                     with open(code_path, "r") as jcode:
                         code = jcode.readlines()
                 with open(file_path) as json_file:
@@ -160,8 +156,6 @@ def llmao_gen(pretrain_type, output_dir):
                         break
 
                 result_dict = use_window_method(model, tokenize_mask, code)
-
-                # using filter
                 test_dict = {k: v for k, v in result_dict.items() if str(k) in sus_json}
                 if test_dict:
                     result_dict = test_dict

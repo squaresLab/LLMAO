@@ -114,7 +114,6 @@ def validation_one_epoch(model_utils, validation_loader, model, pretraining):
 
     with torch.no_grad():
         for batch_iter, (input, label, mask) in enumerate(validation_loader):
-            # print(input.shape)
             predictions = model(input, mask)
             vloss = loss_fn(predictions, label)
 
@@ -244,8 +243,6 @@ def model_pipe(
     # Loading checkpoint and setting up tensorboard logging
     model_path = f"{data_name}_{pretrain_type}"
     model_checkpoint_path = f"model_checkpoints/{model_path}"
-    # if "-1.2.0" in model_checkpoint_path:
-    #     model_checkpoint_path = model_checkpoint_path.replace("-1.2.0", "1")
     if load_checkpoint and os.path.exists(model_checkpoint_path):
         print("Loading checkpoint")
         model.load_state_dict(torch.load(model_checkpoint_path))

@@ -263,12 +263,7 @@ class Encoder(nn.Module):
             torch.tensor: [batch_size=batch_size, input_seq_len=256, d_model=1024]
         """
         for i in range(self.num_layer):
-            # print('x shape: ', x.shape) # torch.Size([16, 2048, 1024])
-            # print('padding_mask shape: ', padding_mask.shape)
-            # 2048 is too long of a token for the CodeGenBlock, needs to be 256.
-
             x = self.enc_layers[i](x, attention_mask=padding_mask)
-            # print('codegen layer: ', x)
             x = x[0]
         return x  # (batch_size, input_seq_len, d_model)
 
@@ -307,7 +302,6 @@ class VoltronTransformerPretrained(nn.Module):
         Returns:
             _type_: _description_
         """
-        # print('attention_mask shape: ', attention_mask.shape)
         attention_mask = torch.where(
             attention_mask[:, None, None, :] == 1, 0, -torch.inf
         )
@@ -350,7 +344,6 @@ class PositionalEncoding(torch.nn.Module):  # custom code
         self.register_buffer("pe", pe)  # allows state-save
 
     def forward(self, x):
-        # x has shape [seq_len, bat_size, embed_dim]
         x = x + self.pe[: x.size(0), :]
         return self.dropout(x)
 
@@ -395,12 +388,7 @@ class VoltronTransformer(nn.Module):
         Returns:
             _type_: _description_
         """
-        # seq_len = list(inp.size())[1]
-        # Embedding layers
-        # (batch_size, input_seq_len, d_model)
-        # print(inp.max())
         embeddings = self.embedding(inp.type(torch.long))
-        # pos_encoding -> torch.Size([1, 512, 1024])
         embeddings *= math.sqrt(torch.tensor(self.dim_model))
         embeddings = self.pos_encoding(embeddings)
         embeddings = self.embedding_dropout(embeddings)
@@ -410,7 +398,6 @@ class VoltronTransformer(nn.Module):
             attention_mask[:, None, None, :] == 1, 0, -torch.inf
         )
         enc_output = self.encoder(embeddings, padding_mask=attention_mask)
-        # projected_output = self.dim_projection(enc_output)
         """
         enc_output: [batch_size, input_seq_len, d_model]
         => torch.Size([batch_size, 256, 1024]
@@ -421,8 +408,6 @@ class VoltronTransformer(nn.Module):
         => torch.Size([2, 256, 1])
         """
         squeezed = torch.squeeze(single_logit, axis=-1)
-
-        # print('squeezed ', squeezed.shape)
         """
         Output dimension
         print('squeezed: ', squeezed.size()) 

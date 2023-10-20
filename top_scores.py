@@ -109,7 +109,6 @@ def results(log_path, data_name, codegen_size):
                 total_bugs = 493
             elif "defects4j-1.2.0" in label_name:
                 total_bugs = 226
-                # total_bugs = 395
                 print(total_bugs)
             elif "defects4j" in label_name:
                 total_bugs = 395
