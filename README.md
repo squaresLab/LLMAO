@@ -110,7 +110,7 @@ top 3: 126
 top 1: 69
 ```
 
-In which LLMAO has much weaker results than Transfer that is trained on all files for each individual D4J bug.
+In which LLMAO has much weaker results than Transfer-FL, a prior fault localization approach that is trained on Defects4J for each individual bug.
 
 To remake LLMAO file level scores:
 ```
