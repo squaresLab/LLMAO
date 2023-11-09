@@ -30,17 +30,17 @@ II. Demo
 ---------------------------
 We include two example code files here for demonstration: `demo_code.c` and `demo_code.java`.
 
-With actual buggy lines 93, 95 for `demo_code.c`,
-and actual buggy lines 20, 25 for `demo_code.java`.
+With actual vulnerable lines 52-62 for `demo_code.c`,
+and actual buggy lines 20-30 for `demo_code.java`.
 
 ```
 python3 demo.py $demo_type $pretrain_type $code_file_path
-example: python3 demo.py devign 350M demo_code.c
+example: python3 demo.py devign 16B demo_code.c
 
 
 output: 
-line-95 sus-21.35%:         tcg_gen_ext16u_i32(QREG_DIV1, reg);
-line-93 sus-17.59%:         tcg_gen_ext16s_i32(QREG_DIV1, reg);
+line-52 sus-15.86%:         DISAS_INSN(divw)
+...
 ```
 
 Minimum VRAM (GPU memory) required for loading each of the checkpoints:
