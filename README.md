@@ -58,7 +58,7 @@ Top scores:
 ```
 python3 top_scores.py model_logs $pretrain_type
 # Example
-python3 top_scores.py model_logs 16B
+python3 top_scores.py model_logs 6B
 ```
 
 
