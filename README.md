@@ -1,6 +1,7 @@
 # LLMAO
 
 LLMAO is a large language model based fault localization tool, associated with the following [paper](https://arxiv.org/abs/2310.01726) published at ICSE-2024.
+For paper replication, skip to section 3. For replication of this tool on Defects4J per bug level, skip to section 5.
 
 I. Requirements
 --------------------
@@ -51,6 +52,7 @@ Minimum VRAM (GPU memory) required for loading each of the checkpoints:
 
 16B: 38GB (recommend at least 2-3 GPUs)
 
+The 16B checkpoint for Defects4J is too large to fit on GitHub or standard drives, for replication results please use 350M or 6B.
 
 III. Obtain some top scores
 ---------------------------
